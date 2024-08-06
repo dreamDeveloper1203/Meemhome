@@ -209,6 +209,28 @@
                   </a>
                 </li>
                 <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center"
+                    :href="'https://barcode.orcascan.com/?type=code128&data=' + slotProps.data.url"
+                    target="_blank"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 24" stroke="currentColor" class="hero-icon me-2">
+                    <g>
+                      <path 
+                        stroke-width="2" 
+                        d="M6.1 20L6.1 0M7.9 20L7.9 0M8.9 20L8.9 0M15.5 20L15.5 0M27.5 20L27.5 0"
+                      />
+                      <path 
+                        stroke-width="1.5" 
+                        d="M9.3 20L9.3 0M15.9 20L15.9 0M23.7 20L23.7 0"
+                      />
+                    </g>
+                  </svg>
+
+                    Bar Code
+                  </a>
+                </li>
+                <li>
                   <button class="dropdown-item d-flex align-items-center" @click="shareToFacebook(slotProps.data.url)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="hero-icon me-2">
                       <path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z" />
