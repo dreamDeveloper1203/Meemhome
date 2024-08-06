@@ -1,0 +1,1 @@
+{"version":3,"file":"/js/common.js","mappings":"AAAAA,SAASC,iBAAiB,oBAAoB,WAE1CC,QAAQC,IAAI,qBAChB","sources":["webpack:///./resources/js/common.js"],"sourcesContent":["document.addEventListener('DOMContentLoaded', function() {\n    // Your code here\n    console.log('Document is ready!');\n});"],"names":["document","addEventListener","console","log"],"sourceRoot":""}
