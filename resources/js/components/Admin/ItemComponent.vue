@@ -1677,6 +1677,7 @@
           <div class="form-label fw-bold mb-3">Url</div>
           <div class="row">
             <img
+              loading="lazy"
               :src="barcodeData.url"
               class="border border-dark rounded-4"
               alt="placeholder-image"
@@ -1689,6 +1690,7 @@
           <div class="form-label fw-bold mb-3">Bar Code Number</div>
           <div class="row">
             <img
+              loading="lazy"
               :src="barcodeData.barcode"
               class="border border-dark rounded-4"
               alt="placeholder-image"
@@ -1863,15 +1865,26 @@ export default {
       this.$refs.dt.exportCSV();
     },
     PrintBarCode() {
-      const search = this.search;
-      if (!search || typeof search !== 'string') return this.items;
-      const lowercaseSearch = search.toLowerCase();
-      let searched_list =  this.items.filter(item => {
+      let searched_list = this.items
+      const lowercaseSearch = this.search.toLowerCase();
+      searched_list =  this.items.filter(item => {
         return item.search_name.toLowerCase().includes(lowercaseSearch) || (item.serial_number && item.serial_number.toLowerCase().includes(lowercaseSearch));
       });
-      this.items.map((e) => {
-        console.log(`--------------${e.url}-----------------`)
+      let htmlContent = ''
+
+      searched_list.map((e) => {
+        htmlContent += `
+          <image 
+            loading="lazy"
+            src="https://barcode.orcascan.com/?type=code128&format=png&data=${e.barcode}" 
+            width="100%"
+            height="150px"
+          />
+          <br />
+        `
       })
+      let myWindow = window.open("", "BarCodeWindow", "width=1000px");
+      myWindow.document.write(htmlContent);
     },
     fetchItems() {
       topbar.show();
