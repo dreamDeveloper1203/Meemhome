@@ -37,6 +37,23 @@
                 </div>
               </div>
             </div>
+            <button class="btn btn-primary px-4 d-flex align-items-center mx-3" @click="PrintBarCode($event)">
+              <svg fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" stroke-width="1.5" stroke="currentColor" class="hero-icon me-1">
+                <path d="M21.5,33A1.5,1.5,0,0,0,20,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,21.5,33Z"/>
+                <path d="M29.5,33A1.5,1.5,0,0,0,28,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,29.5,33Z"/>
+                <path d="M34.5,33A1.5,1.5,0,0,0,33,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,34.5,33Z"/>
+                <path d="M63.5,33A1.5,1.5,0,0,0,62,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,63.5,33Z"/>
+                <path d="M68.5,33A1.5,1.5,0,0,0,67,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,68.5,33Z"/>
+                <path d="M45.5,33A1.5,1.5,0,0,0,44,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,45.5,33Z"/>
+                <path d="M55.5,33A1.5,1.5,0,0,0,54,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,55.5,33Z"/>
+                <path d="M82,66.5v-32a1.5,1.5,0,0,0-3,0v32a1.5,1.5,0,0,0,3,0Z"/>
+                <path d="M10.5,38A1.5,1.5,0,0,0,12,36.5V28h8.5a1.5,1.5,0,0,0,0-3h-10A1.5,1.5,0,0,0,9,26.5v10A1.5,1.5,0,0,0,10.5,38Z"/>
+                <path d="M91.5,25h-10a1.5,1.5,0,0,0,0,3H90v8.5a1.5,1.5,0,0,0,3,0v-10A1.5,1.5,0,0,0,91.5,25Z"/>
+                <path d="M20.5,74H12V66.5a1.5,1.5,0,0,0-3,0v9A1.5,1.5,0,0,0,10.5,77h10a1.5,1.5,0,0,0,0-3Z"/>
+                <path d="M91.5,65A1.5,1.5,0,0,0,90,66.5V74H81.5a1.5,1.5,0,0,0,0,3h10A1.5,1.5,0,0,0,93,75.5v-9A1.5,1.5,0,0,0,91.5,65Z"/>
+              </svg>
+              Print BarCode
+            </button>
             <button class="btn btn-primary px-4 d-flex align-items-center" @click="exportCSV($event)">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon me-1">
                 <path
@@ -211,22 +228,37 @@
                 <li>
                   <a
                     class="dropdown-item d-flex align-items-center"
-                    :href="'https://barcode.orcascan.com/?type=code128&data=' + slotProps.data.url"
-                    target="_blank"
+                    data-bs-target="#barcodeItemModal" 
+                    data-bs-toggle="modal" 
+                    v-on:click="showBarcode(slotProps.data)"
                   >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 24" stroke="currentColor" class="hero-icon me-2">
-                    <g>
-                      <path 
-                        stroke-width="2" 
-                        d="M6.1 20L6.1 0M7.9 20L7.9 0M8.9 20L8.9 0M15.5 20L15.5 0M27.5 20L27.5 0"
-                      />
-                      <path 
-                        stroke-width="1.5" 
-                        d="M9.3 20L9.3 0M15.9 20L15.9 0M23.7 20L23.7 0"
-                      />
-                    </g>
-                  </svg>
-
+                  <!-- data-bs-target="#barcodeItemModal" data-bs-toggle="modal" v-on:click="showBarcode(slotProps.data)" -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" stroke-width="1.5" stroke="currentColor" fill="#000000" class="hero-icon me-2">
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M21.5,33A1.5,1.5,0,0,0,20,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,21.5,33Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M29.5,33A1.5,1.5,0,0,0,28,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,29.5,33Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M34.5,33A1.5,1.5,0,0,0,33,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,34.5,33Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M63.5,33A1.5,1.5,0,0,0,62,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,63.5,33Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M68.5,33A1.5,1.5,0,0,0,67,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,68.5,33Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M45.5,33A1.5,1.5,0,0,0,44,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,45.5,33Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M55.5,33A1.5,1.5,0,0,0,54,34.5v32a1.5,1.5,0,0,0,3,0v-32A1.5,1.5,0,0,0,55.5,33Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M82,66.5v-32a1.5,1.5,0,0,0-3,0v32a1.5,1.5,0,0,0,3,0Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M10.5,38A1.5,1.5,0,0,0,12,36.5V28h8.5a1.5,1.5,0,0,0,0-3h-10A1.5,1.5,0,0,0,9,26.5v10A1.5,1.5,0,0,0,10.5,38Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M91.5,25h-10a1.5,1.5,0,0,0,0,3H90v8.5a1.5,1.5,0,0,0,3,0v-10A1.5,1.5,0,0,0,91.5,25Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M20.5,74H12V66.5a1.5,1.5,0,0,0-3,0v9A1.5,1.5,0,0,0,10.5,77h10a1.5,1.5,0,0,0,0-3Z"/>
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round" d="M91.5,65A1.5,1.5,0,0,0,90,66.5V74H81.5a1.5,1.5,0,0,0,0,3h10A1.5,1.5,0,0,0,93,75.5v-9A1.5,1.5,0,0,0,91.5,65Z"/>
+                    </svg>
                     Bar Code
                   </a>
                 </li>
@@ -1626,6 +1658,50 @@
       </form>
     </div>
   </div>
+
+  <!-- MODAL BarCode -->
+  <div class="modal" id="barcodeItemModal" tabindex="-1" aria-labelledby="barcodeItemModalLabel">
+    <div class="modal-dialog modal-fullscreen-md-down modal-lg modal-dialog-scrollable modal-content rounded-4">
+      <div class="modal-header d-flex align-items-center">
+        <div class="d-flex align-items-center flex-grow-1">
+          <BackBtn />
+          <h5 class="modal-title" id="barcodeItemModalLabel">Bar Code</h5>
+        </div>
+        <div>
+          <button type="button" class="btn btn-outline-danger px-md-4 me-2" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <div class="modal-body bg-body">
+
+        <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
+          <div class="form-label fw-bold mb-3">Url</div>
+          <div class="row">
+            <img
+              loading="lazy"
+              :src="barcodeData.url"
+              class="border border-dark rounded-4"
+              alt="placeholder-image"
+              v-if="barcodeData.url"
+              style="width: 100%px; height: 160px; object-fit: contain"
+            />
+          </div>
+        </div>
+        <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
+          <div class="form-label fw-bold mb-3">Bar Code Number</div>
+          <div class="row">
+            <img
+              loading="lazy"
+              :src="barcodeData.barcode"
+              class="border border-dark rounded-4"
+              alt="placeholder-image"
+              v-if="barcodeData.barcode"
+              style="width: 100%px; height: 160px; object-fit: contain"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -1685,6 +1761,10 @@ export default {
       itemAdditionalImages: [],
       imageUrl: '',
       variantImageUrl: [],
+      barcodeData: {
+        url: '',
+        barcode: ''
+      },
       editData: {
         id: '',
         name: '',
@@ -1783,6 +1863,28 @@ export default {
     },
     exportCSV() {
       this.$refs.dt.exportCSV();
+    },
+    PrintBarCode() {
+      let searched_list = this.items
+      const lowercaseSearch = this.search.toLowerCase();
+      searched_list =  this.items.filter(item => {
+        return item.search_name.toLowerCase().includes(lowercaseSearch) || (item.serial_number && item.serial_number.toLowerCase().includes(lowercaseSearch));
+      });
+      let htmlContent = ''
+
+      searched_list.map((e) => {
+        htmlContent += `
+          <image 
+            loading="lazy"
+            src="https://barcode.orcascan.com/?type=code128&format=png&data=${e.barcode}" 
+            width="100%"
+            height="150px"
+          />
+          <br />
+        `
+      })
+      let myWindow = window.open("", "BarCodeWindow", "width=1000px");
+      myWindow.document.write(htmlContent);
     },
     fetchItems() {
       topbar.show();
@@ -2426,6 +2528,11 @@ export default {
       document.body.removeChild(input);
       this.$toast.success('Copied to clipboard');
     },
+    showBarcode(item) {
+      this.barcodeData.url = `https://barcode.orcascan.com/?type=code128&format=png&data=${item.url}`
+      this.barcodeData.barcode = `https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}`
+      console.log(this.barcodeData)
+    }, 
     shareToFacebook(url) {
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
     },
