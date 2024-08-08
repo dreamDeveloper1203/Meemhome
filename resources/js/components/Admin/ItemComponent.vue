@@ -1320,6 +1320,14 @@
               </div>
             </div>
           </div>
+          
+          <div class="row">
+              <div class="col-md-6"></div>
+              <div class="col-md-6 d-flex align-items-center mb-3">
+                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="prinUrlebyEdit()">Print Url</button>
+                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="printBarCodebyEdit()">Print BarCode</button>
+              </div>
+          </div>
 
           <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
             <div class="form-label fw-bold mb-3">Media</div>
@@ -1743,6 +1751,7 @@ export default {
         website: true,
         android_app: true,
         ios_app: true,
+        url: '',
         continue_selling_when_out_of_stock: false,
         additionalImages: [],
         variants: []
@@ -1835,7 +1844,7 @@ export default {
           <br />
         `
       })
-      let myWindow = window.open("", "BarCodeWindow", "width=1000px");
+      let myWindow = window.open("", "BarCodeWindow1", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
       // myWindow.print();
     },
@@ -2128,6 +2137,7 @@ export default {
       this.editData.meta_title = item.meta_title;
       this.editData.meta_description = item.meta_description;
       this.editData.keywords = item.keywords;
+      this.editData.url = item.url;
       this.itemAdditionalImages = item.additional_images;
       if (item?.variants.length > 0) {
         item.variants.forEach((el, index) => {
@@ -2220,6 +2230,39 @@ export default {
       this.editData.variants[index].image_url = null;
       this.editData.variants[index].image_path = null;
       this.$toast.success('Image has been deleted');
+    },
+
+    printBarCodebyEdit() {
+      let htmlContent = ''
+      htmlContent += `
+        <image 
+          loading="lazy"
+          src="https://barcode.orcascan.com/?type=code128&format=png&data=${this.editData.barcode}" 
+          width="100%"
+          height="150px"
+        />
+        <h2 style="text-align: center; page-break-after: always;">${this.editData.barcode}</h2>
+        <br />
+      `
+      let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
+      myWindow.document.write(htmlContent);
+    },
+
+    prinUrlebyEdit() {
+      let htmlContent = ''
+      htmlContent += `
+        <image 
+          loading="lazy"
+          src="https://barcode.orcascan.com/?type=code128&format=png&data=${this.editData.url}" 
+          width="100%"
+          height="150px"
+        />
+        <h2 style="text-align: center; page-break-after: always;">${this.editData.url}</h2>
+        <br />
+      `
+      console.log(this.editData)
+      let myWindow = window.open("", "BarCodeWindow3", "width=600px; height=800px;");
+      myWindow.document.write(htmlContent);
     },
 
     deleteAdditionalImage(image) {
@@ -2500,7 +2543,7 @@ export default {
           <br />
           <h2 style="text-align: center; page-break-after: always;">${item.barcode}</h2>
         `
-      let myWindow = window.open("", "BarCodeWindow", "width=1000px");
+      let myWindow = window.open("", "BarCodeWindow4", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
       // myWindow.print();
     }, 
