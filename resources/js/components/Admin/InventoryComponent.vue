@@ -48,7 +48,7 @@
             <td>
               <button class="btn btn-info btn-xs me-md-2" data-bs-toggle="modal" data-bs-target="#editinventoryModal" v-on:click="openEditModal(inventory)">Edit</button>
 
-              <button class="btn btn-danger btn-xs" v-on:click="deleteinventory(inventory.id)">Delete</button>
+              <button class="btn btn-danger btn-xs" v-on:click="deleteInventory(inventory.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -150,7 +150,7 @@ export default {
       this.fetchInventories();
     },
 
-    deleteinventory(id) {
+    deleteInventory(id) {
       Swal.fire(swalConfig()).then(result => {
         if (result.value) {
           topbar.show();

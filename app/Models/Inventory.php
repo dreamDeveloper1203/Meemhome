@@ -6,14 +6,11 @@ use App\Services\Strings;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Inventory extends Model
 {
     use HasFactory;
     use HasUuid;
-    use SoftDeletes;
-
 
     const CACHE_KEY = "inventories";
     const CACHE_TTL = 60 * 60 * 72;

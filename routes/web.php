@@ -208,6 +208,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('inventories/all', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'index'])->name('inventories.index');
         Route::post('inventory', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'store'])->name('inventory.store');
         Route::put('inventory/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'update'])->name('inventory.update');
+        Route::put('inventory/status/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryStatusController::class, 'update'])->name('inventory.status.update');
         Route::delete('inventory/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'destroy'])->name('inventory.delete');
 
 
