@@ -203,6 +203,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('orders/{id}', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'show'])->name('orders.show');
         Route::get('orders/{id}/print', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'print'])->name('orders.print');
 
+        // inventory controller 
+        Route::get('inventories', [\App\Http\Controllers\Admin\Inventory\InventoryPageController::class, 'show'])->name('inventories');
+        Route::get('inventories/all', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'index'])->name('inventories.index');
+        Route::post('inventory', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'store'])->name('inventory.store');
+        Route::put('inventory/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'update'])->name('inventory.update');
+        Route::delete('inventory/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'destroy'])->name('inventory.delete');
+
 
 
         Route::get('/email/primary/test', [\App\Http\Controllers\Admin\TestEmailController::class, 'testPrimaryEmail'])->name('email.test');

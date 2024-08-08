@@ -10,6 +10,7 @@ import ItemComponent from './components/Admin/ItemComponent.vue';
 import ServiceComponent from './components/Admin/ServiceComponent.vue';
 import BannerComponent from './components/Admin/BannerComponent.vue';
 import AreaComponent from './components/Admin/AreaComponent.vue';
+import InventoryComponent from './components/Admin/InventoryComponent.vue';
 import CouponComponent from './components/Admin/CouponComponent.vue';
 import NotificationComponent from './components/Admin/NotificationComponent.vue';
 import SettingsComponent from './components/Admin/SettingsComponent.vue';
@@ -51,6 +52,7 @@ const app = createApp({
         CouponComponent,
         NotificationComponent,
         AreaComponent,
+        InventoryComponent,
         SettingsComponent,
         CartBadgeComponent,
 
