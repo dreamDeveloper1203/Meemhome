@@ -228,8 +228,6 @@
                 <li>
                   <a
                     class="dropdown-item d-flex align-items-center"
-                    data-bs-target="#barcodeItemModal" 
-                    data-bs-toggle="modal" 
                     v-on:click="showBarcode(slotProps.data)"
                   >
                   <!-- data-bs-target="#barcodeItemModal" data-bs-toggle="modal" v-on:click="showBarcode(slotProps.data)" -->
@@ -1659,49 +1657,6 @@
     </div>
   </div>
 
-  <!-- MODAL BarCode -->
-  <div class="modal" id="barcodeItemModal" tabindex="-1" aria-labelledby="barcodeItemModalLabel">
-    <div class="modal-dialog modal-fullscreen-md-down modal-lg modal-dialog-scrollable modal-content rounded-4">
-      <div class="modal-header d-flex align-items-center">
-        <div class="d-flex align-items-center flex-grow-1">
-          <BackBtn />
-          <h5 class="modal-title" id="barcodeItemModalLabel">Bar Code</h5>
-        </div>
-        <div>
-          <button type="button" class="btn btn-outline-danger px-md-4 me-2" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-      <div class="modal-body bg-body">
-
-        <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
-          <div class="form-label fw-bold mb-3">Url</div>
-          <div class="row">
-            <img
-              loading="lazy"
-              :src="barcodeData.url"
-              class="border border-dark rounded-4"
-              alt="placeholder-image"
-              v-if="barcodeData.url"
-              style="width: 100%px; height: 160px; object-fit: contain"
-            />
-          </div>
-        </div>
-        <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
-          <div class="form-label fw-bold mb-3">Bar Code Number</div>
-          <div class="row">
-            <img
-              loading="lazy"
-              :src="barcodeData.barcode"
-              class="border border-dark rounded-4"
-              alt="placeholder-image"
-              v-if="barcodeData.barcode"
-              style="width: 100%px; height: 160px; object-fit: contain"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -1761,10 +1716,6 @@ export default {
       itemAdditionalImages: [],
       imageUrl: '',
       variantImageUrl: [],
-      barcodeData: {
-        url: '',
-        barcode: ''
-      },
       editData: {
         id: '',
         name: '',
@@ -1880,11 +1831,13 @@ export default {
             width="100%"
             height="150px"
           />
+          <h2 style="text-align: center; page-break-after: always;">${e.barcode}</h2>
           <br />
         `
       })
       let myWindow = window.open("", "BarCodeWindow", "width=1000px");
       myWindow.document.write(htmlContent);
+      // myWindow.print();
     },
     fetchItems() {
       topbar.show();
@@ -2529,9 +2482,27 @@ export default {
       this.$toast.success('Copied to clipboard');
     },
     showBarcode(item) {
-      this.barcodeData.url = `https://barcode.orcascan.com/?type=code128&format=png&data=${item.url}`
-      this.barcodeData.barcode = `https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}`
-      console.log(this.barcodeData)
+      let htmlContent = `
+          <image 
+            loading="lazy"
+            src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.url}" 
+            width="100%"
+            height="150px"
+          />
+          <br />
+          <h2 style="text-align: center; page-break-after: always;">${item.url}</h2>
+          <image 
+            loading="lazy"
+            src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}" 
+            width="100%"
+            height="150px"
+          />
+          <br />
+          <h2 style="text-align: center; page-break-after: always;">${item.barcode}</h2>
+        `
+      let myWindow = window.open("", "BarCodeWindow", "width=1000px");
+      myWindow.document.write(htmlContent);
+      // myWindow.print();
     }, 
     shareToFacebook(url) {
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
