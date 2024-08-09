@@ -7,12 +7,12 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventory extends Model
+class Location extends Model
 {
     use HasFactory;
     use HasUuid;
 
-    const CACHE_KEY = "inventories";
+    const CACHE_KEY = "locations";
     const CACHE_TTL = 60 * 60 * 72;
     /**
      * The attributes that are mass assignable.

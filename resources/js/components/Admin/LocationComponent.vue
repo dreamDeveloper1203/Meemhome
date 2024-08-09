@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex align-items-center mb-3">
-    <div class="flex-grow-1 h5 fw-bold m-0 ff-montserrat">Inventories</div>
-    <button class="btn btn-primary px-md-4 ms-auto" data-bs-toggle="modal" data-bs-target="#inventoryModal">Add Inventory</button>
+    <div class="flex-grow-1 h5 fw-bold m-0 ff-montserrat">Locations</div>
+    <button class="btn btn-primary px-md-4 ms-auto" data-bs-toggle="modal" data-bs-target="#locationModal">Add Location</button>
   </div>
   <div class="border rounded-3 p-3 mb-3 bg-white border-light shadow-sm">
     <div class="position-relative mb-3">
@@ -29,42 +29,42 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="inventory in InventoryList" :key="inventory.id">
-            <td>{{ inventory.name }}</td>
+          <tr v-for="location in locationList" :key="location.id">
+            <td>{{ location.name }}</td>
             <td>
               <div class="form-check form-switch">
                 <input
                   class="form-check-input cursor-pointer"
                   type="checkbox"
                   id="flexSwitchCheckChecked"
-                  :checked="inventory.is_active"
-                  v-on:change="updateStatus(inventory.id)"
+                  :checked="location.is_active"
+                  v-on:change="updateStatus(location.id)"
                 />
                 <label class="form-check-label" for="flexSwitchCheckChecked">
-                  {{ inventory.status }}
+                  {{ location.status }}
                 </label>
               </div>
             </td>
             <td>
-              <button class="btn btn-info btn-xs me-md-2" data-bs-toggle="modal" data-bs-target="#editinventoryModal" v-on:click="openEditModal(inventory)">Edit</button>
+              <button class="btn btn-info btn-xs me-md-2" data-bs-toggle="modal" data-bs-target="#editlocationModal" v-on:click="openEditModal(location)">Edit</button>
 
-              <button class="btn btn-danger btn-xs" v-on:click="deleteInventory(inventory.id)">Delete</button>
+              <button class="btn btn-danger btn-xs" v-on:click="deletelocation(location.id)">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <NoContent v-if="InventoryList.length == 0" />
+      <NoContent v-if="locationList.length == 0" />
     </div>
   </div>
 
   <!-- Modal Create -->
-  <div class="modal fade" id="inventoryModal" tabindex="-1" aria-labelledby="inventoryModalLabel" aria-hidden="true">
+  <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-md-down modal-dialog-scrollable modal-dialog-centered">
-      <form @submit.prevent="storeInventory" class="modal-content">
+      <form @submit.prevent="storelocation" class="modal-content">
         <div class="modal-header d-flex align-items-center">
           <div class="d-flex align-items-center flex-grow-1">
             <BackBtn />
-            <h5 class="modal-title" id="inventoryModalLabel">Add Inventory</h5>
+            <h5 class="modal-title" id="locationModalLabel">Add location</h5>
           </div>
           <div>
             <button type="button" class="btn btn-outline-danger px-md-4 me-2" data-bs-dismiss="modal" @click="restoreFormControl()">Discard</button>
@@ -73,7 +73,7 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="name" class="form-label fw-bold">inventory Name</label>
+            <label for="name" class="form-label fw-bold">Location Name</label>
             <input type="text" class="form-control" v-model="data.name" id="name" :class="{ 'is-invalid': errors.hasOwnProperty('name') }" name="name" />
             <div class="invalid-feedback" v-if="errors.hasOwnProperty('name')">
               {{ errors.name[0] }}
@@ -85,13 +85,13 @@
   </div>
 
   <!-- Modal Update -->
-  <div class="modal fade" id="editinventoryModal" tabindex="-1" aria-labelledby="editinventoryModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editlocationModal" tabindex="-1" aria-labelledby="editlocationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-md-down modal-dialog-scrollable modal-dialog-centered">
-      <form @submit.prevent="updateInventory(editData.id)" class="modal-content">
+      <form @submit.prevent="updatelocation(editData.id)" class="modal-content">
         <div class="modal-header d-flex align-items-center">
           <div class="d-flex align-items-center flex-grow-1">
             <BackBtn />
-            <h5 class="modal-title" id="editinventoryModalLabel">Edit Inventory</h5>
+            <h5 class="modal-title" id="editlocationModalLabel">Edit location</h5>
           </div>
           <div>
             <button type="button" class="btn btn-outline-danger px-md-4 me-2" data-bs-dismiss="modal">Close</button>
@@ -100,7 +100,7 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="name-edit" class="form-label fw-bold">Inventory Name</label>
+            <label for="name-edit" class="form-label fw-bold">location Name</label>
             <input type="text" class="form-control" v-model="editData.name" id="name-edit" :class="{ 'is-invalid': errors.hasOwnProperty('name') }" />
             <div class="invalid-feedback" v-if="errors.hasOwnProperty('name')">
               {{ errors.name[0] }}
@@ -121,7 +121,7 @@ export default {
 
   data() {
     return {
-      inventories: [],
+      Locations: [],
       search: '',
       data: {
         name: '',
@@ -138,28 +138,28 @@ export default {
   },
   mounted() {},
   methods: {
-    fetchInventories() {
+    fetchLocations() {
       topbar.show();
       axios
-        .get('/admin/inventories/all')
-        .then(response => (this.inventories = response.data.data))
+        .get('/admin/locations/all')
+        .then(response => (this.Locations = response.data.data))
         .catch(({ response }) => Swal.fire(`Error ${response.status}`, response.statusText, 'error'))
         .then(() => topbar.hide());
     },
     refreshTable() {
-      this.fetchInventories();
+      this.fetchLocations();
     },
 
-    deleteInventory(id) {
+    deletelocation(id) {
       Swal.fire(swalConfig()).then(result => {
         if (result.value) {
           topbar.show();
           axios
-            .delete(`/admin/inventory/${id}`)
+            .delete(`/admin/location/${id}`)
             .then(response => {
               if (response.status == 200) {
-                this.fetchInventories();
-                this.$toast.success('inventory has been deleted');
+                this.fetchLocations();
+                this.$toast.success('location has been deleted');
               }
             })
             .catch(({ response }) => {
@@ -171,16 +171,16 @@ export default {
         }
       });
     },
-    storeInventory() {
+    storelocation() {
       this.errors = {};
       topbar.show();
       this.loading = true;
       axios
-        .post('/admin/inventory', this.data)
+        .post('/admin/location', this.data)
         .then(response => {
-          this.fetchInventories();
+          this.fetchLocations();
           this.restoreFormControl();
-          this.$toast.success('New Inventory added');
+          this.$toast.success('New location added');
         })
         .catch(({ response }) => {
           if (response.status === 422 || response.status === 429) {
@@ -195,16 +195,16 @@ export default {
         });
     },
 
-    updateInventory(id) {
+    updatelocation(id) {
       this.errors = {};
       topbar.show();
       this.loading = true;
 
       axios
-        .post(`/admin/inventory/${id}`, this.editData)
+        .post(`/admin/location/${id}`, this.editData)
         .then(response => {
-          this.fetchInventories();
-          this.$toast.success('Inventory has been updated');
+          this.fetchLocations();
+          this.$toast.success('location has been updated');
         })
         .catch(({ response }) => {
           if (response.status === 422 || response.status === 429) {
@@ -218,18 +218,18 @@ export default {
           this.loading = false;
         });
     },
-    openEditModal(inventory) {
-      this.editData.id = inventory.id;
-      this.editData.name = inventory.name;
+    openEditModal(location) {
+      this.editData.id = location.id;
+      this.editData.name = location.name;
     },
 
     updateStatus(id) {
       topbar.show();
       axios
-        .put(`/admin/inventory/status/${id}`)
+        .put(`/admin/location/status/${id}`)
         .then(response => {
-          this.fetchInventories();
-          this.$toast.success('Inventory has been updated');
+          this.fetchLocations();
+          this.$toast.success('location has been updated');
         })
         .catch(({ response }) => Swal.fire(`Error ${response.status}`, response.statusText, 'error'))
         .then(() => topbar.hide());
@@ -241,15 +241,15 @@ export default {
   },
 
   created: function () {
-    this.fetchInventories();
+    this.fetchLocations();
   },
   computed: {
-    InventoryList() {
+    locationList() {
       const search = this.search.toLowerCase();
-      if (!search) return this.inventories;
-      return this.inventories.filter(inventory => {
+      if (!search) return this.Locations;
+      return this.Locations.filter(location => {
         return (
-          inventory.name.toLowerCase().includes(search)
+          location.name.toLowerCase().includes(search)
         );
       });
     }

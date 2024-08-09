@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Inventory;
+namespace App\Http\Controllers\Admin\Location;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class InventoryPageController extends Controller
+class LocationPageController extends Controller
 {
     //
     /**
@@ -17,6 +17,6 @@ class InventoryPageController extends Controller
     public function show(): View|RedirectResponse
     {
         $this->checkPermission('area_access');
-        return view('admin.inventories.show');
+        return view('admin.locations.show');
     }
 }

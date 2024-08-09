@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\InventoryRequests;
+namespace App\Http\Requests\LocationRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InventoryStoreRequest extends FormRequest
+class LocationUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class InventoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:100'],
+            'name' => ['required', 'string', 'max:100']
         ];
     }
 }

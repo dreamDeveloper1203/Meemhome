@@ -203,13 +203,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('orders/{id}', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'show'])->name('orders.show');
         Route::get('orders/{id}/print', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'print'])->name('orders.print');
 
-        // inventory controller 
-        Route::get('inventories', [\App\Http\Controllers\Admin\Inventory\InventoryPageController::class, 'show'])->name('inventories');
-        Route::get('inventories/all', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'index'])->name('inventories.index');
-        Route::post('inventory', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'store'])->name('inventory.store');
-        Route::put('inventory/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'update'])->name('inventory.update');
-        Route::put('inventory/status/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryStatusController::class, 'update'])->name('inventory.status.update');
-        Route::delete('inventory/{inventory}', [\App\Http\Controllers\Admin\Inventory\InventoryController::class, 'destroy'])->name('inventory.delete');
+        // location controller 
+        Route::get('locations', [\App\Http\Controllers\Admin\Location\LocationPageController::class, 'show'])->name('locations');
+        Route::get('locations/all', [\App\Http\Controllers\Admin\Location\LocationController::class, 'index'])->name('locations.index');
+        Route::post('location', [\App\Http\Controllers\Admin\Location\LocationController::class, 'store'])->name('location.store');
+        Route::put('location/{location}', [\App\Http\Controllers\Admin\Location\LocationController::class, 'update'])->name('location.update');
+        Route::put('location/status/{location}', [\App\Http\Controllers\Admin\Location\LocationStatusController::class, 'update'])->name('location.status.update');
+        Route::delete('location/{location}', [\App\Http\Controllers\Admin\Location\LocationController::class, 'destroy'])->name('location.delete');
 
 
 

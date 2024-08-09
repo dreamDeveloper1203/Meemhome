@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\InventoryResources;
+namespace App\Http\Resources\LocationResources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class InventoryResourceCollection extends ResourceCollection
+class LocationResourceCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
