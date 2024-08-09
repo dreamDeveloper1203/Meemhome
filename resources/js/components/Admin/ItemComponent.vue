@@ -1324,8 +1324,8 @@
           <div class="row">
               <div class="col-md-6"></div>
               <div class="col-md-6 d-flex align-items-center mb-3">
-                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="prinUrlebyEdit()">Print Url</button>
-                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="printBarCodebyEdit()">Print BarCode</button>
+                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="printBarCodebyEdit(editData.url)">Print Url</button>
+                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="printBarCodebyEdit(editData.barcode)">Print BarCode</button>
               </div>
           </div>
 
@@ -1543,6 +1543,15 @@
                 <input type="number" class="form-control" v-model="productField.in_stock" step="1" min="0" id="in_stock" />
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-6"></div>
+              <div class="col-md-6 d-flex align-items-center mb-3">
+                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="printBarCodebyEdit(editData.url)">Print Url</button>
+                <button type="button" class="btn btn-primary m-3 ms-auto px-md-4" @click="printBarCodebyEdit(productField.barcode)">Print BarCode</button>
+              </div>
+            </div>
+
             <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
               <div class="col-md-6 mb-3">
                 <label for="color" class="form-label fw-bold"> Colour </label>
@@ -2232,36 +2241,19 @@ export default {
       this.$toast.success('Image has been deleted');
     },
 
-    printBarCodebyEdit() {
+    printBarCodebyEdit(barcode) {
       let htmlContent = ''
       htmlContent += `
         <image 
           loading="lazy"
-          src="https://barcode.orcascan.com/?type=code128&format=png&data=${this.editData.barcode}" 
+          src="https://barcode.orcascan.com/?type=code128&format=png&data=${barcode}" 
           width="100%"
           height="150px"
         />
-        <h2 style="text-align: center; page-break-after: always;">${this.editData.barcode}</h2>
+        <h2 style="text-align: center; page-break-after: always;">${barcode}</h2>
         <br />
       `
       let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
-      myWindow.document.write(htmlContent);
-    },
-
-    prinUrlebyEdit() {
-      let htmlContent = ''
-      htmlContent += `
-        <image 
-          loading="lazy"
-          src="https://barcode.orcascan.com/?type=code128&format=png&data=${this.editData.url}" 
-          width="100%"
-          height="150px"
-        />
-        <h2 style="text-align: center; page-break-after: always;">${this.editData.url}</h2>
-        <br />
-      `
-      console.log(this.editData)
-      let myWindow = window.open("", "BarCodeWindow3", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
     },
 
