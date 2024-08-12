@@ -577,7 +577,7 @@
                     width="100%"
                     height="50px"
                 />
-                <h6 style="text-align: center;">${value}</h6>
+                <div style="text-align: center;">${value}</div>
             `
             let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
             myWindow.document.write(htmlContent);
