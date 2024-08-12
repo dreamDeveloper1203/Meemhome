@@ -203,6 +203,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('orders/{id}', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'show'])->name('orders.show');
         Route::get('orders/{id}/print', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'print'])->name('orders.print');
 
+        // location controller 
+        Route::get('locations', [\App\Http\Controllers\Admin\Location\LocationPageController::class, 'show'])->name('locations');
+        Route::get('locations/all', [\App\Http\Controllers\Admin\Location\LocationController::class, 'index'])->name('locations.index');
+        Route::post('location', [\App\Http\Controllers\Admin\Location\LocationController::class, 'store'])->name('location.store');
+        Route::put('location/{location}', [\App\Http\Controllers\Admin\Location\LocationController::class, 'update'])->name('location.update');
+        Route::put('location/status/{location}', [\App\Http\Controllers\Admin\Location\LocationStatusController::class, 'update'])->name('location.status.update');
+        Route::delete('location/{location}', [\App\Http\Controllers\Admin\Location\LocationController::class, 'destroy'])->name('location.delete');
+
 
 
         Route::get('/email/primary/test', [\App\Http\Controllers\Admin\TestEmailController::class, 'testPrimaryEmail'])->name('email.test');
