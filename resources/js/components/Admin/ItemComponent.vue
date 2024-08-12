@@ -1847,10 +1847,9 @@ export default {
             loading="lazy"
             src="https://barcode.orcascan.com/?type=code128&format=png&data=${e.barcode}" 
             width="100%"
-            height="80px"
+            height="40px"
           />
-          <h3 style="text-align: center; page-break-after: always;">${e.barcode}</h3>
-          <br />
+          <h4 style="text-align: center; page-break-after: always;">${e.barcode}</h4>
         `
       })
       let myWindow = window.open("", "BarCodeWindow1", "width=600px; height=800px;");
@@ -2248,10 +2247,9 @@ export default {
           loading="lazy"
           src="https://barcode.orcascan.com/?type=code128&format=png&data=${barcode}" 
           width="100%"
-          height="80px"
+          height="40px"
         />
-        <h3 style="text-align: center; page-break-after: always;">${barcode}</h3>
-        <br />
+        <h4 style="text-align: center;">${barcode}</h4>
       `
       let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
@@ -2522,18 +2520,18 @@ export default {
             loading="lazy"
             src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.url}" 
             width="100%"
-            height="80px"
+            height="40px"
           />
           <br />
-          <h3 style="text-align: center; page-break-after: always;">${item.url}</h3>
+          <h4 style="text-align: center; page-break-after: always;">${item.url}</h4>
           <image 
             loading="lazy"
             src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}" 
             width="100%"
-            height="80px"
+            height="40px"
           />
           <br />
-          <h3 style="text-align: center; page-break-after: always;">${item.barcode}</h3>
+          <h4 style="text-align: center;">${item.barcode}</h4>
         `
       let myWindow = window.open("", "BarCodeWindow4", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
