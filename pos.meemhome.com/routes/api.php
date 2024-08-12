@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('orders', [\App\Http\Controllers\API\V1\OrderController::class, 'index'])->name('api.orders.index');
 Route::get('products', [\App\Http\Controllers\API\V1\ProductController::class, 'index'])->name('api.products.index');
 Route::get('categories', [\App\Http\Controllers\API\V1\CategoryController::class, 'index'])->name('api.categories.index');
+Route::get('locations', [\App\Http\Controllers\API\V1\LocationController::class, 'index'])->name('api.locations.index');
