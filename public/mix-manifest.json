@@ -1,12 +1,12 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/app-admin.js": "/js/app-admin.js",
-    "/js/util-script.js": "/js/util-script.js",
-    "/js/splide.js": "/js/splide.js",
-    "/js/particles.js": "/js/particles.js",
-    "/js/common.js": "/js/common.js",
-    "/css/app.css": "/css/app.css",
-    "/css/app-admin.css": "/css/app-admin.css",
-    "/css/splide.css": "/css/splide.css",
-    "/css/home.css": "/css/home.css"
+    "/js/app.js": "/js/app.js?id=6318d31b32f49a2b0222f2c8f35b0b15",
+    "/js/app-admin.js": "/js/app-admin.js?id=6dc0c44f739499a4b7187d1c259a6ea5",
+    "/js/util-script.js": "/js/util-script.js?id=4704242c40862c152747568ae23dbcb7",
+    "/js/splide.js": "/js/splide.js?id=456a32032239540906c7e6e5b0ddcfe2",
+    "/js/particles.js": "/js/particles.js?id=a2cb0124344b4beb60b5ad745c846015",
+    "/js/common.js": "/js/common.js?id=a1978686185da4910cfc5516578aefe6",
+    "/css/app.css": "/css/app.css?id=c98eba91b9e1a15b688bae72f3ba8fb9",
+    "/css/app-admin.css": "/css/app-admin.css?id=1cdb8ba0d4d6b667044ef71f4c55409b",
+    "/css/splide.css": "/css/splide.css?id=6434c44d9150bc939f0d2cca3d7a943d",
+    "/css/home.css": "/css/home.css?id=52a37293f93ba9a7549fbf6351302806"
 }
