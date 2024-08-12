@@ -13,7 +13,7 @@
 
         <template #loading>
           <div class="text-center">
-            <h6>Loading...</h6>
+            <div>Loading...</div>
           </div>
         </template>
         <template #header class="bg-white">
@@ -1849,7 +1849,7 @@ export default {
             width="100%"
             height="40px"
           />
-          <h6 style="text-align: center; page-break-after: always;">${e.barcode}</h6>
+          <div style="text-align: center; page-break-after: always;">${e.barcode}</div>
         `
       })
       let myWindow = window.open("", "BarCodeWindow1", "width=600px; height=800px;");
@@ -2249,7 +2249,7 @@ export default {
           width="100%"
           height="40px"
         />
-        <h6 style="text-align: center;">${barcode}</h6>
+        <div style="text-align: center;">${barcode}</div>
       `
       let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
@@ -2522,14 +2522,14 @@ export default {
             width="100%"
             height="40px"
           />
-          <h6 style="text-align: center; page-break-after: always;">${item.url}</h6>
+          <div style="text-align: center; page-break-after: always;">${item.url}</div>
           <image 
             loading="lazy"
             src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}" 
             width="100%"
             height="40px"
           />
-          <h6 style="text-align: center;">${item.barcode}</h6>
+          <div style="text-align: center;">${item.barcode}</div>
         `
       let myWindow = window.open("", "BarCodeWindow4", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
