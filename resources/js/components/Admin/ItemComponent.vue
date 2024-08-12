@@ -2248,10 +2248,9 @@ export default {
           loading="lazy"
           src="https://barcode.orcascan.com/?type=code128&format=png&data=${barcode}" 
           width="100%"
-          height="150px"
+          height="40px"
         />
-        <h2 style="text-align: center; page-break-after: always;">${barcode}</h2>
-        <br />
+        <h4 style="text-align: center;">${barcode}</h4>
       `
       let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
