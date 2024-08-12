@@ -1847,9 +1847,9 @@ export default {
             loading="lazy"
             src="https://barcode.orcascan.com/?type=code128&format=png&data=${e.barcode}" 
             width="100%"
-            height="150px"
+            height="80px"
           />
-          <h2 style="text-align: center; page-break-after: always;">${e.barcode}</h2>
+          <h3 style="text-align: center; page-break-after: always;">${e.barcode}</h3>
           <br />
         `
       })
@@ -2248,9 +2248,9 @@ export default {
           loading="lazy"
           src="https://barcode.orcascan.com/?type=code128&format=png&data=${barcode}" 
           width="100%"
-          height="150px"
+          height="80px"
         />
-        <h2 style="text-align: center; page-break-after: always;">${barcode}</h2>
+        <h3 style="text-align: center; page-break-after: always;">${barcode}</h3>
         <br />
       `
       let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
@@ -2522,18 +2522,18 @@ export default {
             loading="lazy"
             src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.url}" 
             width="100%"
-            height="150px"
+            height="80px"
           />
           <br />
-          <h2 style="text-align: center; page-break-after: always;">${item.url}</h2>
+          <h3 style="text-align: center; page-break-after: always;">${item.url}</h3>
           <image 
             loading="lazy"
             src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}" 
             width="100%"
-            height="150px"
+            height="80px"
           />
           <br />
-          <h2 style="text-align: center; page-break-after: always;">${item.barcode}</h2>
+          <h3 style="text-align: center; page-break-after: always;">${item.barcode}</h3>
         `
       let myWindow = window.open("", "BarCodeWindow4", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
