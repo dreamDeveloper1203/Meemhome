@@ -1852,7 +1852,7 @@ export default {
           <h6 style="text-align: center; page-break-after: always;">${e.barcode}</h6>
         `
       })
-      let myWindow = window.open("", "BarCodeWindow1", "width=200px; height=300px;");
+      let myWindow = window.open("", "BarCodeWindow1", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
       // myWindow.print();
     },
@@ -2251,7 +2251,7 @@ export default {
         />
         <h6 style="text-align: center;">${barcode}</h6>
       `
-      let myWindow = window.open("", "BarCodeWindow2", "width=200px; height=300px;");
+      let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
     },
 
@@ -2531,7 +2531,7 @@ export default {
           />
           <h6 style="text-align: center;">${item.barcode}</h6>
         `
-      let myWindow = window.open("", "BarCodeWindow4", "width=200px; height=300px;");
+      let myWindow = window.open("", "BarCodeWindow4", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
       // myWindow.print();
     }, 
