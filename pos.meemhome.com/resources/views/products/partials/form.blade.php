@@ -108,6 +108,30 @@
                             value="{{ old('wholesale_sku', isset($product) ? $product->wholesale_sku : '') }}" />
                     </div>
                 </div>
+
+                {{-- add bar code print button --}}
+                <div class="row">
+                    <div class="col-md-6">
+                        <button 
+                            type="button" 
+                            class="btn btn-primary px-4 d-flex align-items-center mx-3" 
+                            {{-- {{ isset($product->unit_barcode ) ? '' : 'disabled' }}  --}}
+                            onclick="printBarCode('retail_barcode')"
+                        >
+                            @lang('Retail Barcode')
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button 
+                            type="button" 
+                            class="btn btn-primary px-4 d-flex align-items-center mx-3" 
+                            {{-- {{ isset($product->box_barcode ) ? '' : 'disabled' }}   --}}
+                            onclick="printBarCode('wholesale_barcode')"
+                        >
+                            @lang('Wholesale Barcode')
+                        </button>
+                    </div>
+                </div>
             </x-card>
         </div>
     </div>
@@ -541,6 +565,24 @@
                 form.action = `/products/${productId}/image`;
             });
         });
+
+        function printBarCode(value) {
+            value = $(`Input[name=${value}]`).val();
+
+            let htmlContent = ''
+            htmlContent += `
+                <image 
+                loading="lazy"
+                src="https://barcode.orcascan.com/?type=code128&format=png&data=${value}" 
+                width="100%"
+                height="150px"
+                />
+                <h2 style="text-align: center; page-break-after: always;">${value}</h2>
+                <br />
+            `
+            let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
+            myWindow.document.write(htmlContent);
+        }
 
 
         // document.addEventListener("DOMContentLoaded", function() {
