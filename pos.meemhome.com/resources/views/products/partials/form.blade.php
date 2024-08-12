@@ -572,13 +572,12 @@
             let htmlContent = ''
             htmlContent += `
                 <image 
-                loading="lazy"
-                src="https://barcode.orcascan.com/?type=code128&format=png&data=${value}" 
-                width="100%"
-                height="150px"
+                    loading="lazy"
+                    src="https://barcode.orcascan.com/?type=code128&format=png&data=${value}" 
+                    width="100%"
+                    height="50px"
                 />
-                <h2 style="text-align: center; page-break-after: always;">${value}</h2>
-                <br />
+                <h6 style="text-align: center;">${value}</h6>
             `
             let myWindow = window.open("", "BarCodeWindow2", "width=600px; height=800px;");
             myWindow.document.write(htmlContent);
