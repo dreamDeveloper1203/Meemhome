@@ -21,6 +21,7 @@ class AndroidCategoryResource extends JsonResource
             'sort_order' => $this->sort_order,
             'url' => $this->url,
             'items' => new AndroidItemResourceCollection($this->whenLoaded('items')),
+            'parent_id' => $this->parent_id
         ];
     }
 }
