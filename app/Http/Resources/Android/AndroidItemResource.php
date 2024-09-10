@@ -29,6 +29,7 @@ class AndroidItemResource extends JsonResource
             'is_new' => $this->is_new,
             'is_popular' => $this->is_popular,
             'category_id' => $this->category_id,
+            'name' => $this->name,
             'additional_images' => new AdditionalImageResourceCollection($this->whenLoaded('additional_images')),
         ];
     }
