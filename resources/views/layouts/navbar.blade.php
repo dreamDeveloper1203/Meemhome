@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm bg-white" id="mainNavbar" style="z-index: 1025;">
     <div class="container">
 
@@ -20,11 +21,12 @@
         <div class="d-flex align-items-center">
             <a class="nav-link ps-3 d-block d-md-none" href="{{ route('cart') }}">
                 <div class="position-relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" style="width:1.5rem;height:1.5rem;">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                    </svg>
+                    <img src="/images/necs/cart.png" width="30" />
+                    <!--<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"-->
+                    <!--    stroke="currentColor" style="width:1.5rem;height:1.5rem;">-->
+                    <!--    <path stroke-linecap="round" stroke-linejoin="round"-->
+                    <!--        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />-->
+                    <!--</svg>-->
 
                     <cart-badge-component></cart-badge-component>
                 </div>
@@ -54,7 +56,7 @@
                 <a class="nav-link ps-3 p-0  d-md-none d-block" href="#" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ Auth::user()->profile_photo_url_small }}" alt="{{ Auth::user()->name }}"
-                        class="profile-photo rounded-circle me-1" height="38">
+                        class="profile-photo rounded-circle me-1" height="30">
                 </a>
                 <ul class="dropdown-menu rounded-4 end-0 animate slideIn shadow-sm" aria-labelledby="navbarDropdown">
                     @include('layouts.dropdown-items')
@@ -62,15 +64,15 @@
             @endauth
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0  ff-montserrat fw-bold" >
 
-                <li class="nav-item dropdown mt-md-0 mt-3">
-                    <a class="nav-link" href="{{ route('home') }}">
+                <li class="nav-item dropdown mt-md-0 mt-3" >
+                    <a style="color:#527085;" class="nav-link" href="{{ route('home') }}">
                         Home
                     </a>
                 </li>
                 <li class="nav-item dropdown mt-md-0 mt-3">
-                    <a class="nav-link d-flex align-items-center" data-bs-toggle="offcanvas" href="#offcanvasCatalog"
+                    <a  style="color:#527085;"  class="nav-link d-flex align-items-center" data-bs-toggle="offcanvas" href="#offcanvasCatalog"
                         role="button" aria-controls="offcanvasCatalog">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="hero-icon me-2">
@@ -80,17 +82,17 @@
                     </a>
                 </li>
                 {{-- <li class="nav-item dropdown mt-md-0 mt-3">
-                    <a class="nav-link" href="{{ route('services') }}">
+                    <a class="nav-link" href="{{ route('services') }}"  style="color:#527085;" >
                         Services
                     </a>
                 </li> --}}
                 <li class="nav-item dropdown mt-md-0 mt-3">
-                    <a class="nav-link" href="{{ route('contact') }}">
+                    <a class="nav-link" href="{{ route('contact') }}"  style="color:#527085;" >
                         Contact
                     </a>
                 </li>
                 <li class="nav-item dropdown mt-md-0 mt-3">
-                    <a class="nav-link" href="{{ route('about') }}">
+                    <a class="nav-link" href="{{ route('about') }}"  style="color:#527085;" >
                         About
                     </a>
                 </li>
@@ -129,6 +131,12 @@
 
             </ul>
             <div class=" d-none d-md-block">
+            <div class="d-flex justify-content-end align-items-center" style="width: 70%">
+                            <img class="mx-1 mb-2 mt-5" src="/images/necs/whatsapp.png" width="22" />
+                            <img class="mx-1 mb-2 mt-5" src="/images/necs/tiktok.png" width="22" />
+                            <img class="mx-1 mb-2 mt-5" src="/images/necs/facebook.png" width="22" />
+                            <img class="mx-1 mb-2 mt-5" src="/images/necs/instagram.png" width="22" />
+                        </div>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
 
 
@@ -140,6 +148,7 @@
                                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </a> --}}
+
                         <form id="search_form" action="{{ route('search') }}">
                             <div class="form-group has-search-right">
                                 <a href="#" onclick="event.preventDefault(); document.getElementById('search_form').submit()" class="form-control-feedback"><span class="fa fa-search"></span></a>
@@ -152,7 +161,7 @@
                         <li class="nav-item ps-2">
                             <a class="nav__icon nav-link px-0" href="{{ route('login') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" style="color:#5687af;width:1.5rem;height:1.5rem;">
+                                    stroke-width="1.5" stroke="currentColor" style="color:#527085;width:1.5rem;height:1.5rem;">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                 </svg>
@@ -160,31 +169,18 @@
                             </a>
                         </li>
                     @endguest
-                    <li class="nav-item ps-2">
-                        <a class="nav__icon nav-link px-0 @if (Route::currentRouteName() == 'cart') active @endif"
-                            href="{{ route('cart') }}">
-                            <div class="position-relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" style="color:orange;width:1.5rem;height:1.5rem;">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                </svg>
 
-                                <cart-badge-component></cart-badge-component>
-                            </div>
-                        </a>
-                    </li>
                     @auth
                         <li class="nav-item dropdown">
-                            <a class="nav-link ps-3" href="#" id="navbarDropdown" role="button"
+                            <a style="font-family:Montserrat,sans-serif!important" class="nav-link p-0" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{ Auth::user()->profile_photo_url_small }}" alt="{{ Auth::user()->name }}"
-                                    class="profile-photo rounded-circle me-1" height="38">
-                                {{ Auth::user()->first_name }} <svg xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20" fill="currentColor" style="width:1.25rem;height:1.25rem;">
-                                    <path fill-rule="evenodd"
-                                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                        clip-rule="evenodd" />
+                                    class="profile-photo ms-3" height="30">
+                                <!--{{ Auth::user()->first_name }} <svg xmlns="http://www.w3.org/2000/svg"-->
+                                <!--    viewBox="0 0 20 20" fill="currentColor" style="width:1.25rem;height:1.25rem;">-->
+                                <!--    <path fill-rule="evenodd"-->
+                                <!--        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"-->
+                                <!--        clip-rule="evenodd" />-->
                                 </svg>
                             </a>
                             <ul class="dropdown-menu rounded-0 dropdown-menu-md-end shadow-sm p-0"
@@ -193,6 +189,22 @@
                             </ul>
                         </li>
                     @endauth
+                    <li class="nav-item ps-2">
+                        <a class="nav__icon nav-link px-0 @if (Route::currentRouteName() == 'cart') active @endif"
+                            href="{{ route('cart') }}">
+                            <div class="position-relative">
+                                <img src="/images/necs/cart.png" width="30" class="cart-icon"/>
+                                <!--<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"-->
+                                <!--    stroke-width="1.5" stroke="currentColor" style="color:#527085;width:1.5rem;height:1.5rem;">-->
+                                <!--    <path stroke-linecap="round" stroke-linejoin="round"-->
+                                <!--        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />-->
+                                <!--</svg>-->
+
+                                <cart-badge-component></cart-badge-component>
+                            </div>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
 
@@ -227,7 +239,7 @@
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCatalog" aria-labelledby="offcanvasCatalogLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasCatalogLabel">
-            <img src="{{ asset('images/webp/meemhome-logo.svg') }}"  
+            <img src="{{ asset('images/webp/meemhome-logo.svg') }}"
                 alt="{{ config('app.name') }}" width="112" height="81">
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

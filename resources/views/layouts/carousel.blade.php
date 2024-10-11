@@ -1,14 +1,14 @@
 @if (!$banners->isEmpty())
-    <div id="carouselTechCenterFade" class="carousel slide carousel-fade mb-3" data-bs-ride="carousel">
-        <div class="carousel-inner rounded-4">
+    <div id="carouselTechCenterFade" class="carousel slide carousel-fade mb-3 w-100" data-bs-ride="carousel">
+        <div class="carousel-inner ">
             @foreach ($banners as $banner)
                 <div class="carousel-item @if ($loop->first) active @endif">
                     @if ($banner->url)
                         <a href="{{ $banner->url }}" target="{{ $banner->url_target }}">
-                            <img src="{{ $banner->image_url }}" class="d-block rounded-4 img-fluid" alt="{{ $banner->image_alt ?? 'img' }}">
+                            <img src="{{ $banner->image_url }}" class="d-block img-fluid" alt="{{ $banner->image_alt ?? 'img' }}">
                         </a>
                     @else
-                        <img src="{{ $banner->image_url }}" class="d-block rounded-4 img-fluid" alt="{{ $banner->image_alt ?? 'img' }}">
+                        <img src="{{ $banner->image_url }}" class="d-block img-fluid" alt="{{ $banner->image_alt ?? 'img' }}">
                     @endif
                 </div>
             @endforeach

@@ -15,6 +15,11 @@ class UserOrderController extends Controller
     public function index(Request $request)
     {
         $user = $request->user('api');
+        
+        if (!$user) {
+    return $this->jsonResponse(["error" => "User not authenticated"], 401); // Return a 401 if no user is authenticated
+}
+        
         $orders = Order::with('area', 'payment_method', 'order_detail.item.category', 'coupon', 'order_status', 'order_source')
             ->where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
         return $this->jsonResponse([

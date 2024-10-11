@@ -342,13 +342,13 @@ export default {
       this.loading = true;
       topbar.show();
       this.errors = {};
-
+      let self = this;
       axios
         .post('/api/v1/order', this.data)
         .then(response => {
           Swal.fire('Your order has been submitted successfully', 'Thank you for choosing us!', 'success').then(function () {
             ShoppingCart.clear();
-            window.location = '/';
+            window.location = `/payment-gateway?method=${self.data.payment_method}&order_id=${response.data.id}`;
           });
         })
         .catch(error => {

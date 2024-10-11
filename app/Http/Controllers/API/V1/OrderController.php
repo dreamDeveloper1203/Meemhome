@@ -48,7 +48,7 @@ class OrderController extends ApiController
         $order = new Order();
         $order->number = $this->randomNumber();
 
-        $userId = $request->user_id;
+        $userId =$request->user_id;
 
         $user = User::where('id', $userId)->first();
         if ($user) {
@@ -107,6 +107,11 @@ class OrderController extends ApiController
             $item = Item::find($cartItem->id); // check item if valid
             if ($item) {
                 $quantity = $cartItem->quantity > 1 ? $cartItem->quantity : 1; //prevent 0 and negative numbers
+                if ($item->track_stock) {
+                    $item->in_stock -= $quantity;
+                    $item->save();
+                }
+
                 $order_detail = new OrderDetail();
                 $order_detail->quantity =  $quantity;
                 $order_detail->price = $item->price;
@@ -116,10 +121,6 @@ class OrderController extends ApiController
                 $order_detail->order()->associate($order);
                 $order_detail->save();
 
-                if ($item->track_stock) {
-                    $item->in_stock -= $quantity;
-                    $item->save();
-                }
             }
         }
 
@@ -130,7 +131,7 @@ class OrderController extends ApiController
             //return $e;
             return $this->jsonResponse();
         }
-        return $this->jsonResponse();
+        return $this->jsonResponse(['id' => $order->id]);
     }
 
     /**
@@ -184,6 +185,7 @@ class OrderController extends ApiController
     public function notifyUsers(Order $order)
     {
         $users = User::admin()->get();
+        
         foreach ($users as $user) {
             $user->notify(new OrderPlacedNotification($order));
         }

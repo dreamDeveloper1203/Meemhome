@@ -42,6 +42,11 @@ class Location extends Model
         return $query->where('is_active', true);
     }
 
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
     /**
      * get status.
      *

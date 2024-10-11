@@ -67,7 +67,8 @@ trait HasProfilePhoto
         // })->join(' '));
 
         // return 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&color=7F9CF5&background=EBF4FF';
-        return asset('images/webp/user.webp');
+        // return asset('images/webp/user.webp');
+        return asset('images/necs/profile.png');
     }
 
     protected function profilePhotoDisk(): string

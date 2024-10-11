@@ -44,6 +44,7 @@ class Item extends Model
         'status',
         'in_stock',
         'category_id',
+        'location_id',
         'size',
         'color',
         'track_stock',
@@ -91,6 +92,12 @@ class Item extends Model
         'avg_rating',
         'sum_rating',
     ];
+
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
     /**
      * Get the comments for the blog post.
      */
@@ -114,7 +121,7 @@ class Item extends Model
         // if ($this->parent_id && $this->parent) {
         //     return $this->parent->reviews();
         // } else {
-            return $this->hasMany(Review::class, 'item_id');
+        return $this->hasMany(Review::class, 'item_id');
         // }
     }
 
@@ -205,6 +212,13 @@ class Item extends Model
     public function getCategoryNameAttribute(): string
     {
         return $this->category->name;
+    }
+
+    public function getLocationNameAttribute(): string
+    {
+        if ($this->location)
+            return $this->location->name;
+        return '';
     }
 
     public function getPageTitleAttribute()

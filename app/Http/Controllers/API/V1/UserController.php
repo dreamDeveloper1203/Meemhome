@@ -7,15 +7,25 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     /**
-     * show user.
+     * Show user details.
      *
      */
     public function show(Request $request)
     {
+        // Check if the user is authenticated
+        $user = $request->user('api');
+
+        if ($user) {
+            // If the token is valid and the user is authenticated, return user data
+            return $this->jsonResponse([
+                'user' => $user,
+            ], 200);
+        }
+
+        // If the user is not authenticated, return an error response
         return $this->jsonResponse([
-            "user" => $request->user('api'),
-        ]);
+            'error' => 'Unauthorized or invalid token',
+        ], 401);
     }
 }

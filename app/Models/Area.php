@@ -24,6 +24,7 @@ class Area extends Model
      * @var array
      */
     protected $fillable = [
+        
         'name',
         'fee',
         'time',

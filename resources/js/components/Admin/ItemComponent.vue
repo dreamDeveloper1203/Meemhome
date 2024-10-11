@@ -131,6 +131,14 @@
             <div class="text-danger small" v-if="!slotProps.data.category.is_active">(Category is {{ slotProps.data.category.status }})</div>
           </template>
         </Column>
+        <Column field="location.name" header="Location" :sortable="true">
+            <template #body="slotProps">
+              <a :href="slotProps.data.location.url" class="link-primary small" target="_blank">
+                {{ slotProps.data.location.name }}
+              </a>
+              <div class="text-danger small" v-if="!slotProps.data.location.is_active">(Location is {{ slotProps.data.location.status }})</div>
+            </template>
+          </Column>
         <!-- <Column field="in_stock" header="In Stock" :sortable="true">
             <template #body="slotProps">
               <template v-if="slotProps.data.track_stock"> {{ slotProps.data.in_stock.toLocaleString() }}</template>
@@ -686,21 +694,64 @@
                 <input class="form-check-input" type="checkbox" v-model="data.continue_selling_when_out_of_stock" id="continueSellingCheckbox" />
                 <label class="form-check-label" for="continueSellingCheckbox"> Continue Selling when out of stock</label>
               </div>-->
-            <div class="mb-3">
-              <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
-              <input
-                type="number"
-                class="form-control"
-                v-model="data.in_stock"
-                step="1"
-                min="0"
-                id="in_stock"
-                :class="{ 'is-invalid': errors.hasOwnProperty('in_stock') }"
-              />
-              <div class="invalid-feedback" v-if="errors.hasOwnProperty('in_stock')">
-                {{ errors.in_stock[0] }}
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    v-model="data.in_stock"
+                    step="1"
+                    min="0"
+                    id="in_stock"
+                    :class="{ 'is-invalid': errors.hasOwnProperty('in_stock') }"
+                  />
+                  <div class="invalid-feedback" v-if="errors.hasOwnProperty('in_stock')">
+                    {{ errors.in_stock[0] }}
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="location" class="form-label fw-bold">Location</label>
+                  <Dropdown
+                    v-model="data.location"
+                    :options="locations"
+                    placeholder="Select Location*"
+                    :filter="false"
+                    filterPlaceholder="Search..."
+                    emptyFilterMessage="No results found"
+                    emptyMessage="No results found"
+                  >
+                    <template #value="slotProps">
+                      <div class="d-flex align-items-center" v-if="slotProps.value">
+                        <!-- <img
+                          :alt="slotProps.value.name"
+                          :src="slotProps.value.select_icon_url"
+                          height="40"
+                          class="me-2"
+                          :class="{ border: !slotProps.value.image_path }"
+                        /> -->
+                        <span>{{ slotProps.value.name }}</span>
+                      </div>
+                    </template>
+                    <template #option="slotProps">
+                      <div class="d-flex align-items-center">
+                        <!-- <img
+                          :alt="slotProps.option.name"
+                          :src="slotProps.option.select_icon_url"
+                          height="40"
+                          class="me-2"
+                          :class="{ border: !slotProps.option.image_path }"
+                        /> -->
+                        <span>{{ slotProps.option.name }}</span>
+                      </div>
+                    </template>
+                  </Dropdown>
+                  <div class="invalid-feedback" v-if="errors.hasOwnProperty('location')">
+                    {{ errors.location[0] }}
+                  </div>
+                </div>
               </div>
-            </div>
+
           </div>
           <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
             <div class="form-label fw-bold mb-3">Media</div>
@@ -861,10 +912,63 @@
                 <input class="form-check-input" type="checkbox" v-model="data.continue_selling_when_out_of_stock" id="continueSellingCheckbox" />
                 <label class="form-check-label" for="continueSellingCheckbox"> Continue Selling when out of stock</label>
               </div>-->
-              <div class="mb-3">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    v-model="productField.in_stock"
+                    step="1"
+                    min="0"
+                    id="in_stock"
+                  />
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="location" class="form-label fw-bold">Location</label>
+                  <Dropdown
+                    v-model="productField.location"
+                    :options="locations"
+                    placeholder="Select Location*"
+                    :filter="false"
+                    filterPlaceholder="Search..."
+                    emptyFilterMessage="No results found"
+                    emptyMessage="No results found"
+                  >
+                    <template #value="slotProps">
+                      <div class="d-flex align-items-center" v-if="slotProps.value">
+                        <!-- <img
+                          :alt="slotProps.value.name"
+                          :src="slotProps.value.select_icon_url"
+                          height="40"
+                          class="me-2"
+                          :class="{ border: !slotProps.value.image_path }"
+                        /> -->
+                        <span>{{ slotProps.value.name }}</span>
+                      </div>
+                    </template>
+                    <template #option="slotProps">
+                      <div class="d-flex align-items-center">
+                        <!-- <img
+                          :alt="slotProps.option.name"
+                          :src="slotProps.option.select_icon_url"
+                          height="40"
+                          class="me-2"
+                          :class="{ border: !slotProps.option.image_path }"
+                        /> -->
+                        <span>{{ slotProps.option.name }}</span>
+                      </div>
+                    </template>
+                  </Dropdown>
+
+                </div>
+              </div>
+
+              <!-- <div class="mb-3">
+
                 <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
                 <input type="number" class="form-control" v-model="productField.in_stock" step="1" min="0" id="in_stock" />
-              </div>
+              </div> -->
             </div>
             <div class="border rounded-4 p-3 mb-3 bg-white border-light shadow-sm">
               <div class="col-md-6 mb-3">
@@ -1304,23 +1408,66 @@
                 <input class="form-check-input" type="checkbox" v-model="editData.continue_selling_when_out_of_stock" id="continueSellingCheckboxEdit" />
                 <label class="form-check-label" for="continueSellingCheckboxEdit"> Continue Selling when out of stock</label>
               </div> -->
-            <div class="mb-3">
-              <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
-              <input
-                type="number"
-                class="form-control"
-                v-model="editData.in_stock"
-                step="1"
-                min="0"
-                id="in_stock"
-                :class="{ 'is-invalid': errors.hasOwnProperty('in_stock') }"
-              />
-              <div class="invalid-feedback" v-if="errors.hasOwnProperty('in_stock')">
-                {{ errors.in_stock[0] }}
-              </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      v-model="editData.in_stock"
+                      step="1"
+                      min="0"
+                      id="in_stock"
+                      :class="{ 'is-invalid': errors.hasOwnProperty('in_stock') }"
+                    />
+                    <div class="invalid-feedback" v-if="errors.hasOwnProperty('in_stock')">
+                      {{ errors.in_stock[0] }}
+                    </div>
+                  </div>
+                <div class="mb-3 col-md-6">
+                    <label for="location" class="form-label fw-bold">Location</label>
+                    <Dropdown
+                      v-model="editData.location"
+                      :options="locations"
+                      placeholder="Select Location*"
+                      :filter="false"
+                      filterPlaceholder="Search..."
+                      emptyFilterMessage="No results found"
+                      emptyMessage="No results found"
+                    >
+                      <template #value="slotProps">
+                        <div class="d-flex align-items-center" v-if="slotProps.value">
+                          <!-- <img
+                            :alt="slotProps.value.name"
+                            :src="slotProps.value.select_icon_url"
+                            height="40"
+                            class="me-2"
+                            :class="{ border: !slotProps.value.image_path }"
+                          /> -->
+                          <span>{{ slotProps.value.name }}</span>
+                        </div>
+                      </template>
+                      <template #option="slotProps">
+                        <div class="d-flex align-items-center">
+                          <!-- <img
+                            :alt="slotProps.option.name"
+                            :src="slotProps.option.select_icon_url"
+                            height="40"
+                            class="me-2"
+                            :class="{ border: !slotProps.option.image_path }"
+                          /> -->
+                          <span>{{ slotProps.option.name }}</span>
+                        </div>
+                      </template>
+                    </Dropdown>
+                    <div class="invalid-feedback" v-if="errors.hasOwnProperty('location')">
+                      {{ errors.location[0] }}
+                    </div>
+                  </div>
             </div>
+
           </div>
-          
+
           <div class="row">
               <div class="col-md-6"></div>
               <div class="col-md-6 d-flex align-items-center mb-3">
@@ -1538,10 +1685,62 @@
                 <label class="form-check-label" for="continueSellingCheckbox"> Continue Selling when out of stock</label>
               </div>-->
               <!-- ************************************** -->
-              <div class="mb-3">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    v-model="productField.in_stock"
+                    step="1"
+                    min="0"
+                    id="in_stock"
+                  />
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="location" class="form-label fw-bold">Location</label>
+                  <Dropdown
+                    v-model="productField.location"
+                    :options="locations"
+                    placeholder="Select Location*"
+                    :filter="false"
+                    filterPlaceholder="Search..."
+                    emptyFilterMessage="No results found"
+                    emptyMessage="No results found"
+                  >
+                    <template #value="slotProps">
+                      <div class="d-flex align-items-center" v-if="slotProps.value">
+                        <!-- <img
+                          :alt="slotProps.value.name"
+                          :src="slotProps.value.select_icon_url"
+                          height="40"
+                          class="me-2"
+                          :class="{ border: !slotProps.value.image_path }"
+                        /> -->
+                        <span>{{ slotProps.value.name }}</span>
+                      </div>
+                    </template>
+                    <template #option="slotProps">
+                      <div class="d-flex align-items-center">
+                        <!-- <img
+                          :alt="slotProps.option.name"
+                          :src="slotProps.option.select_icon_url"
+                          height="40"
+                          class="me-2"
+                          :class="{ border: !slotProps.option.image_path }"
+                        /> -->
+                        <span>{{ slotProps.option.name }}</span>
+                      </div>
+                    </template>
+                  </Dropdown>
+
+                </div>
+              </div>
+
+              <!-- <div class="mb-3">
                 <label for="in_stock" class="form-label fw-bold"> In Stock (Available)</label>
                 <input type="number" class="form-control" v-model="productField.in_stock" step="1" min="0" id="in_stock" />
-              </div>
+              </div> -->
             </div>
 
             <div class="row">
@@ -1701,6 +1900,7 @@ export default {
       app_url: config.APP_URL,
       items: [],
       categories: [],
+      locations: [],
       pageOfItems: [],
       search: '',
       data: {
@@ -1713,6 +1913,7 @@ export default {
         cost: null,
         in_stock: 0,
         category: null,
+        location: null,
         sku: '',
         barcode: '',
         code: '',
@@ -1746,6 +1947,7 @@ export default {
         cost: null,
         in_stock: 0,
         category: null,
+        location: null,
         sku: '',
         barcode: '',
         code: '',
@@ -1843,9 +2045,9 @@ export default {
 
       searched_list.map((e) => {
         htmlContent += `
-          <image 
+          <image
             loading="lazy"
-            src="https://barcode.orcascan.com/?type=code128&format=png&data=${e.barcode}" 
+            src="https://barcode.orcascan.com/?type=code128&format=png&data=${e.barcode}"
             width="100%"
             height="40px"
           />
@@ -1876,6 +2078,12 @@ export default {
         .get('/admin/categories/all')
         .then(response => (this.categories = response.data.data))
         .catch(({ response }) => Swal.fire('Error ', 'Could not fetch categories', 'error'));
+    },
+    fetchLocations() {
+      axios
+        .get('/admin/locations/all')
+        .then(response => (this.locations = response.data.data))
+        .catch(({ response }) => Swal.fire('Error ', 'Could not fetch locations', 'error'));
     },
     deleteItem(id) {
       Swal.fire(swalConfig()).then(result => {
@@ -1915,6 +2123,7 @@ export default {
       formData.append('in_stock', this.data.in_stock);
       formData.append('description', this.data.description || '');
       formData.append('category', this.data.category?.id || null);
+      formData.append('location', this.data.location?.id || null);
       formData.append('status', this.data.status_id);
       formData.append('meta_title', this.data.meta_title || '');
       formData.append('meta_description', this.data.meta_description || '');
@@ -2020,6 +2229,7 @@ export default {
       formData.append('in_stock', this.editData.in_stock);
       formData.append('description', this.editData.description || '');
       formData.append('category', this.editData.category.id);
+      formData.append('location', this.editData.location.id);
       formData.append('status', this.editData.status_id);
       formData.append('meta_title', this.editData.meta_title || '');
       formData.append('meta_description', this.editData.meta_description || '');
@@ -2142,6 +2352,7 @@ export default {
       this.editData.status_id = item.status_id;
       this.editData.description = item.description || '';
       this.editData.category = item.category;
+      this.editData.location = item.location;
       this.editData.meta_title = item.meta_title;
       this.editData.meta_description = item.meta_description;
       this.editData.keywords = item.keywords;
@@ -2243,9 +2454,9 @@ export default {
     printBarCodebyEdit(barcode) {
       let htmlContent = ''
       htmlContent += `
-        <image 
+        <image
           loading="lazy"
-          src="https://barcode.orcascan.com/?type=code128&format=png&data=${barcode}" 
+          src="https://barcode.orcascan.com/?type=code128&format=png&data=${barcode}"
           width="100%"
           height="40px"
         />
@@ -2516,16 +2727,16 @@ export default {
     },
     showBarcode(item) {
       let htmlContent = `
-          <image 
+          <image
             loading="lazy"
-            src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.url}" 
+            src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.url}"
             width="100%"
             height="40px"
           />
           <div style="text-align: center; page-break-after: always;">${item.url}</div>
-          <image 
+          <image
             loading="lazy"
-            src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}" 
+            src="https://barcode.orcascan.com/?type=code128&format=png&data=${item.barcode}"
             width="100%"
             height="40px"
           />
@@ -2534,7 +2745,7 @@ export default {
       let myWindow = window.open("", "BarCodeWindow4", "width=600px; height=800px;");
       myWindow.document.write(htmlContent);
       // myWindow.print();
-    }, 
+    },
     shareToFacebook(url) {
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
     },
@@ -2570,6 +2781,7 @@ export default {
   created: function () {
     this.fetchItems();
     this.fetchCategories();
+    this.fetchLocations();
   },
   computed: {
     priceAfterDiscount() {

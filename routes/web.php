@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/optimize', function(){
+    \Artisan::call('optimize');
+    return response()->json(['optimized' => true]);
+});
+
+
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'show'])->name('home');
 Route::get('/test', [\App\Http\Controllers\HomeController::class, 'test'])->name('test');
@@ -21,6 +27,7 @@ Route::post('contact/message', [\App\Http\Controllers\ContactController::class, 
 Route::get('/about', [\App\Http\Controllers\AboutController::class, 'show'])->name('about');
 // Route::get('/store/status', [\App\Http\Controllers\Admin\StoreStatusController::class, 'show'])->name('store.status');
 Route::get('/cart', [\App\Http\Controllers\CartController::class, 'show'])->name('cart');
+Route::get('/payment-gateway', [\App\Http\Controllers\OrderController::class, 'paymentGatway'])->name('paymentGatway');
 Route::get('/services', [\App\Http\Controllers\ServiceController::class, 'index'])->name('services');
 Route::get('/services/{id}', [\App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
 Route::get('/order', [\App\Http\Controllers\OrderController::class, 'show'])->name('order');
@@ -98,8 +105,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'show'])->name('dashboard');
 
         Route::get('categories', [\App\Http\Controllers\Admin\Category\CategoryPageController::class, 'show'])->name('categories');
-        Route::get('categories/parents/all', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'index'])->name('categories.parents.index');
         Route::get('categories/all', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'all'])->name('categories.index');
+
+        Route::get('categories/parents/all', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'index'])->name('categories.parents.index');
+       
         // Route::put('categories/status/{category}', [\App\Http\Controllers\Admin\Category\CategoryStatusController::class, 'update'])->name('categories.status.update');
         Route::post('categories', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'store'])->name('categories.store');
         Route::put('categories/{category}', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'update'])->name('categories.update');
@@ -202,8 +211,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('orders/{order}', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'destroy'])->name('orders.delete');
         Route::get('orders/{id}', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'show'])->name('orders.show');
         Route::get('orders/{id}/print', [\App\Http\Controllers\Admin\SubmittedOrderController::class, 'print'])->name('orders.print');
+        // Route::post('/order', [\App\Http\Controllers\API\V1\OrderController::class, 'store']);
 
-        // location controller 
+
+        // location controller
         Route::get('locations', [\App\Http\Controllers\Admin\Location\LocationPageController::class, 'show'])->name('locations');
         Route::get('locations/all', [\App\Http\Controllers\Admin\Location\LocationController::class, 'index'])->name('locations.index');
         Route::post('location', [\App\Http\Controllers\Admin\Location\LocationController::class, 'store'])->name('location.store');

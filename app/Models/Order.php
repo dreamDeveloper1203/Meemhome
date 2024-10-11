@@ -24,6 +24,9 @@ class Order extends Model
      *
      * @var array
      */
+     
+     protected $fillable = ['address', 'area_id'];
+
     protected $appends = [
         'display_date',
         'display_date_created_at',
@@ -43,7 +46,8 @@ class Order extends Model
      */
     public function scopeSearchCustomer(Builder $query, ?string $search): Builder
     {
-        if (!$search) return $query;
+        if (!$search)
+            return $query;
         return $query->Where('name', 'LIKE', "%{$search}%")
             ->orWhere('email', 'LIKE', "%{$search}%")
             ->orWhere('phone', 'LIKE', "%{$search}%");
@@ -56,7 +60,8 @@ class Order extends Model
      */
     public function scopeSearch(Builder $query, ?string $search): Builder
     {
-        if (!$search) return $query;
+        if (!$search)
+            return $query;
         return $query->where('number', 'LIKE', "%{$search}%")
             ->orWhere('name', 'LIKE', "%{$search}%")
             ->orWhere('email', 'LIKE', "%{$search}%")
@@ -170,5 +175,31 @@ class Order extends Model
     public function getDisplayOrderDetailsTotalAttribute(): string
     {
         return usd_money_format($this->order_details_total);
+    }
+
+
+public function getAreebaSession()
+    {
+        $merchant_id = env('AREEBA_MERCHANT_ID');
+        $merchant_name = env('AREEBA_MERCHANT_NAME');
+        $auth_header = env('AREEBA_HEADER');
+        $data = [
+            "apiOperation" => "INITIATE_CHECKOUT",
+            "interaction" => [
+                "operation" => "PURCHASE",
+                "merchant" => [
+                    "name" => $merchant_name
+                ]
+            ],
+            "order" => [
+                "currency" => "USD",
+                "id" => $this->id,
+                "amount" => $this->total
+            ]
+        ];
+        $response = api_post("https://epayment.areeba.com/api/rest/version/82/merchant/$merchant_id/session", $data, $auth_header);
+        if($response){
+            return $response['session']['id'];
+        }
     }
 }

@@ -28,6 +28,7 @@ class ItemResource extends JsonResource
             'is_popular' => $this->is_popular,
             'url' => $this->url,
             'category_name' => $this->category_name,
+            'location_name' => $this->location_name,
         ];
     }
 }

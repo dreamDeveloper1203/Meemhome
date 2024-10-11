@@ -50,7 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   if (!isBigScreen) {
-    infoNavbar.remove();
+      if(infoNavbar){
+        infoNavbar.remove();
+      }
   }
   var formControlList = [].slice.call(document.querySelectorAll('.form-control'));
   formControlList.map(function (formControlElement) {

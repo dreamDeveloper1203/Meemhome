@@ -12,6 +12,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class CategoryController extends Controller
 {
@@ -20,13 +25,22 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function all(): JsonResponse
-    {
-        $this->checkPermission('catalog_access');
-        return $this->jsonResponse(['data' => new CategoryResourceCollection(
-            Category::orderBy('sort_order', 'ASC')->get()
-        )]);
-    }
+ public function all(): JsonResponse
+{
+
+     $this->checkPermission('catalog_access');  
+
+        $categories = Category::orderBy('sort_order', 'ASC')->get();
+        
+    // Return response with the category data
+        return $this->jsonResponse([
+            'data' => new CategoryResourceCollection($categories)
+        ]);
+
+}
+
+
+
 
     /**
      * Display a listing of the resource.
@@ -35,7 +49,7 @@ class CategoryController extends Controller
      */
     public function index(): JsonResponse
     {
-        $this->checkPermission('catalog_access');
+        // $this->checkPermission('catalog_access');
         return $this->jsonResponse(['data' => new CategoryResourceCollection(
             Category::whereNull('parent_id')->with('subcategories', function ($query) {
                 $query->orderBy('sort_order', 'ASC');

@@ -16,7 +16,7 @@ class HomeController extends Controller
 
     /**
      * Show home page.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function show(): View
@@ -27,14 +27,29 @@ class HomeController extends Controller
         //         return $query->website()->active();
         //     })->website()->active()->where('discount', '>', 0)->with('category')->take(8)->get();
         // });
+        
+        $parentCategories = Category::where('parent_id', Null)->get();
 
-        $latestProducts = Cache::rememberForever(Item::LATEST_ITEMS_CACHE_KEY, function () {
-            return Item::whereHas('category', function ($query) {
+        // $childCategories = Category::whereNotNull('parent_id')->get()->toArray();
+        
+        $childCategories = \DB::select('SELECT * FROM categories WHERE parent_id IS NOT NULL');
+        // shuffle($childCategories);
+        
+        
+        $banners = Banner::active()->orderBy('sort_order', 'ASC')->latest()->get();
+        
+        $latestProducts = Item::whereHas('category', function ($query) {
                 return $query->website()->active();
             })
                 ->MainProduct()
                 ->website()->active()->with('category')->latest()->take(8)->get();
-        });
+        // $latestProducts = Cache::rememberForever(Item::LATEST_ITEMS_CACHE_KEY, function () {
+        //     return Item::whereHas('category', function ($query) {
+        //         return $query->website()->active();
+        //     })
+        //         ->MainProduct()
+        //         ->website()->active()->with('category')->latest()->take(8)->get();
+        // });
 
 
         // $randomProducts = Cache::rememberForever(Item::RANDOM_ITEMS_CACHE_KEY, function () {
@@ -43,12 +58,11 @@ class HomeController extends Controller
         //     })->website()->active()->with('category')->inRandomOrder()->take(8)->get();
         // });
 
-        $parentCategories = Category::where('parent_id', Null)->get();
-        $childCategories = Category::where('parent_id', '!=', Null)->get()->toArray();
-        shuffle($childCategories);
-        $banners = Cache::rememberForever(Banner::CACHE_KEY, function () {
-            return Banner::active()->orderBy('sort_order', 'ASC')->latest()->get();
-        });
+
+        
+        // Cache::rememberForever(Banner::CACHE_KEY, function () {
+        //     return Banner::active()->orderBy('sort_order', 'ASC')->latest()->get();
+        // });
 
         return view('home.show', [
             'global_alert' => Settings::getGlobalAlertValue(),
@@ -65,7 +79,7 @@ class HomeController extends Controller
      * Show item page.
      *
      * @param string $slug
-     * 
+     *
      * @return \Illuminate\View\View
      */
 
@@ -143,7 +157,7 @@ class HomeController extends Controller
 public function showItem(Request $request, string $id): View
 {
     $item = Item::findOrFail($id);
-
+    $stock = $item->in_stock;
     $mainProductId = $item->parent_id ? $item->parent_id : $item->id;
 
     $mainItem = Item::findOrFail($mainProductId);
@@ -211,7 +225,7 @@ public function showItem(Request $request, string $id): View
     $matchedProduct->colors = array_values($colors);
 
     $reviews = Review::where('item_id', $mainProductId)->with('user')->latest()->paginate(10);
-
+    $matchedProduct->in_stock = $stock;
     return view('home.item', [
         'item' => $matchedProduct,
         'reviews' => $reviews,
@@ -221,7 +235,7 @@ public function showItem(Request $request, string $id): View
 
     /**
      * Show home page.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function test(): View

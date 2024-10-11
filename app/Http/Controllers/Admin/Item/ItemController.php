@@ -7,6 +7,7 @@ use App\Http\Requests\ItemRequests\ItemStoreRequest;
 use App\Http\Requests\ItemRequests\ItemUpdateRequest;
 use App\Http\Resources\ItemResources\ItemResourceCollection;
 use App\Models\Category;
+use App\Models\Location;
 use App\Models\Image;
 use App\Models\Item;
 use Exception;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Log;
 
@@ -29,15 +31,27 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(): JsonResponse
-    {
-        $this->checkPermission('product_access');
+   public function index(): JsonResponse
+{
+    // $this->checkPermission('product_access');
 
-        $items = Item::with('category', 'additional_images', 'variants.additional_images')
-            ->MainProduct()
-            ->orderBy('name', 'ASC')->get();
-        return $this->jsonResponse(['data' => new ItemResourceCollection($items)]);
-    }
+    // Fetch items with related data including category and its subcategories
+    $items = Item::with([
+        'location', 
+        'category.subcategories',  // Load category with its subcategories
+        'additional_images', 
+        'variants.additional_images'
+    ])
+    ->MainProduct()
+    ->orderBy('name', 'ASC')
+    ->get();
+
+    return $this->jsonResponse([
+        'data' => new ItemResourceCollection($items)
+    ]);
+}
+
+
 
 
 
@@ -58,6 +72,7 @@ class ItemController extends Controller
             $item->name = $request->name;
             $item->description = $request->description;
             $item->category_id = $request->category;
+            $item->location_id = $request->location;
 
             $item->status_id = $request->status;
             $item->pos =  $request->has('pos');
@@ -112,6 +127,7 @@ class ItemController extends Controller
                     $variant->name = $request->name . ' ' . $row['color'] . ' ' . $row['size'];
                     $variant->description = $request->description;
                     $variant->category_id = $request->category;
+                    $variant->location_id = $request->location;
                     $variant->color = (trim($row['color']) === "" || $row['color'] === 'null' || !$row['color']) ? null : $row['color'];
                     $variant->size = (trim($row['size']) === "" || $row['size'] === 'null' || !$row['size']) ? null : $row['size'];
                     $variant->parent_id = $item->id;
@@ -180,6 +196,7 @@ class ItemController extends Controller
         $item->name = $request->name;
         $item->description = $request->description;
         $item->category_id = $request->category;
+        $item->location_id = $request->location;
 
         $item->status_id = $request->status;
         $item->pos =  $request->has('pos');
@@ -236,6 +253,7 @@ class ItemController extends Controller
                 $variant->name = $request->name . '  ' . $row['color'] . '  ' . $row['size'];
                 $variant->description = $request->description;
                 $variant->category_id = $request->category;
+                $variant->location_id = $request->location;
                 $variant->color = (trim($row['color']) === "" || $row['color'] === 'null' || !$row['color']) ? null : $row['color'];
                 $variant->size = (trim($row['size']) === "" || $row['size'] === 'null' || !$row['size']) ? null : $row['size'];
                 $variant->parent_id = $item->id;
@@ -283,9 +301,9 @@ class ItemController extends Controller
         $this->forgetCategoryCache();
         Cache::forget($item->cache_key);
         // Cache::forget(Item::SIMILAR_ITEMS_CACHE_KEY);
-        $item = Item::with('category', 'additional_images', 'variants.additional_images')
+        $item = Item::with('location','category', 'additional_images', 'variants.additional_images')
             ->find($item->id);
-        return $this->jsonResponse(['data' => $item->load('category', 'additional_images', 'variants.additional_images')]);
+        return $this->jsonResponse(['data' => $item->load('location','category', 'additional_images', 'variants.additional_images')]);
     }
 
     /**
@@ -339,9 +357,87 @@ class ItemController extends Controller
         Cache::forget(Category::POS_CACHE_KEY);
         Cache::forget(Category::ANDROID_APP_CACHE_KEY);
         Cache::forget(Category::IOS_APP_CACHE_KEY);
+        Cache::forget(Location::CACHE_KEY);
         Cache::forget(Item::LATEST_ITEMS_CACHE_KEY);
         Cache::forget(Item::DISCOUNT_ITEMS_CACHE_KEY);
         Cache::forget(Item::RANDOM_ITEMS_CACHE_KEY);
         Cache::forget("catalog");
     }
+    
+    public function showProduct($id): JsonResponse
+{
+    // Find the product by ID and load its category and subcategories
+    $product = Item::with([
+        'location', 
+        'category.subcategories',  // Load category with its subcategories
+        'additional_images', 
+        'variants.additional_images'
+    ])->find($id);
+    // $product = Item::with('category.subcategories')->find($id);
+    
+    // Check if the product exists
+    if (!$product) {
+        return response()->json([
+            'message' => 'Product not found'
+        ], 404); // Returning a 404 status code
+    }
+
+    // Return the product data along with its category and subcategories
+    return response()->json([
+        'data' => $product
+    ], 200);
+}
+
+public function filterItemsByCategory(Request $request): JsonResponse
+{
+    // Get the category ID from the request (assuming it's sent as 'category_id')
+    $categoryId = $request->input('category_id');
+
+    // Query to find items that belong to the specified category (and load subcategories)
+   $items = Item::with(['category.subcategories' => function ($query) {
+                     $query->withTrashed(); // Include soft-deleted subcategories as well
+                 }])
+                 ->whereHas('category', function ($query) use ($categoryId) {
+                     $query->where('id', $categoryId)->withTrashed(); // Include soft-deleted categories
+                 })
+                 ->get();
+
+
+    // Check if there are items that match the category filter
+    if ($items->isEmpty()) {
+        return response()->json([
+            'message' => 'No items found for this category'
+        ], 404); // Returning a 404 status code if no items are found
+    }
+
+    // Return the filtered items
+    return response()->json([
+        'data' => $items
+    ], 200);
+}
+
+public function filterItemsByCode(Request $request): JsonResponse
+{
+    // Get the category ID from the request (assuming it's sent as 'category_id')
+    $bar_code = $request->input('bar_code');
+
+    // Query to find items that belong to the specified category (and load subcategories)
+   $items = Item::where('barcode',  $bar_code)->get();
+
+    // Check if there are items that match the category filter
+    if ($items->isEmpty()) {
+        return response()->json([
+            'message' => 'No items found for this category'
+        ], 404); // Returning a 404 status code if no items are found
+    }
+
+    // Return the filtered items
+    return response()->json([
+        'data' => $items
+    ], 200);
+}
+
+
+
+    
 }

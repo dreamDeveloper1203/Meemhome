@@ -80,51 +80,53 @@
                 </a>
             </li> --}}
         </ul>
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto social-icons">
 
-            @if ($facebookUrl)
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="{{ $facebookUrl }}">
-                        <i class="fa-brands fa-2x fa-facebook" style="color: #1778F2;"></i>
-                    </a>
-                </li>
-            @endif
+           @if ($facebookUrl)
+                            <li>
+                                <a target="_blank" href="{{ $facebookUrl }}">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                            </li>
+                        @endif
 
-            @if ($instagramUrl)
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="{{ $instagramUrl }}">
-                        <i class="fa-brands fa-2x fa-instagram" style="color: #111111;"></i>
-                    </a>
-                </li>
-            @endif
-            @if ($twitterUrl)
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="{{ $twitterUrl }}">
-                        <i class="fa-brands fa-2x fa-twitter" style="color: #1DA1F2;"></i>
-                    </a>
-                </li>
-            @endif
-            {{--@if ($youtubeUrl)
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="{{ $youtubeUrl }}">
-                        <i class="fa-brands fa-2x fa-youtube" style="color: #FF0000;"></i>
-                    </a> 
-                </li>
-            @endif--}}
-            @if ($tiktokUrl)
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="{{ $tiktokUrl }}">
-                        <i class="fa-brands fa-2x fa-tiktok" style="color: #111111;"></i>
-                    </a>
-                </li>
-            @endif
-            @if ($whatsapp)
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="https://wa.me/{{ $whatsapp }}">
-                        <i class="fa-brands fa-2x fa-whatsapp" style="color: #25d366;"></i>
-                    </a>
-                </li>
-            @endif
+                        @if ($instagramUrl)
+                            <li>
+                                <a target="_blank" href="{{ $instagramUrl }}">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                            </li>
+                        @endif
+                        @if ($twitterUrl)
+                            <li>
+                                <a target="_blank" href="{{ $twitterUrl }}">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                            </li>
+                        @endif
+                        {{--@if ($youtubeUrl)
+                            <li>
+                                <a target="_blank" href="{{ $youtubeUrl }}">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
+                            </li>
+                        @endif--}}
+                        @if ($tiktokUrl)
+                            <li>
+                                <a target="_blank" href="{{ $tiktokUrl }}">
+                                    <i class="fa-brands fa-tiktok"></i>
+                                </a>
+                            </li>
+                        @endif
+                        @if ($whatsapp)
+                            <li>
+                                <a target="_blank" href="https://wa.me/{{ $whatsapp }}">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+                            </li>
+                        @endif
         </ul>
     </div>
 </nav>
+
+

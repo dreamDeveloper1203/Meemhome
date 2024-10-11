@@ -93,7 +93,7 @@
         }
 
         .small-container {
-            width: 310px;
+            width: 335px;
             height: 70px;
             overflow: hidden;
             position: absolute;

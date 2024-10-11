@@ -1,0 +1,224 @@
+.box-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.box-area li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 25px;
+  height: 25px;
+  background: rgba(33, 62, 125, 0.2);
+  animation: animate 5s linear infinite;
+  bottom: -150px;
+}
+
+.box-area li:nth-child(1) {
+  border-radius: 50%;
+  left: 86%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.box-area li:nth-child(2) {
+  border-radius: 50%;
+  left: 12%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 1.5s;
+  animation-duration: 10s;
+}
+
+.box-area li:nth-child(3) {
+  border-radius: 50%;
+  left: 70%;
+  width: 100px;
+  height: 100px;
+  animation-delay: 5.5s;
+}
+
+.box-area li:nth-child(4) {
+  border-radius: 50%;
+  left: 42%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 15s;
+}
+
+.box-area li:nth-child(5) {
+  border-radius: 50%;
+  left: 65%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 0s;
+}
+
+.box-area li:nth-child(6) {
+  border-radius: 50%;
+  left: 15%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3.5s;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-800px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Devspec */
+.body-home {
+  background-image: unset;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.nav__icon {
+  padding: 5px !important;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav__icon:hover {
+  background-color: #eee;
+}
+
+#home__category img:hover {
+  opacity: 0.5;
+}
+
+.home__category-box {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.home__category-title {
+  font-size: 16px;
+  font-family: 'Roboto', Sans-serif;
+  font-weight: 600;
+  position: absolute;
+  bottom: 0;
+  margin: 0px;
+}
+
+.product-and-labels__heading {
+  font-family: 'Roboto', Sans-serif;
+  font-weight: 600;
+  -webkit-text-stroke-width: 1px;
+  stroke-width: 1px;
+  -webkit-text-stroke-color: #000;
+  stroke: #000;
+}
+
+@media (max-width: 440px) {
+  .home__category-title {
+    font-size: 12px !important;
+  }
+}
+
+.has-search-right {
+  position: relative;
+}
+
+.has-search-right .form-control {
+    border-radius: 10px;
+    padding-right: 2.375rem;
+    transition: width .5s;
+    border: 1px solid #5285ab;
+    width: 210px;
+}
+
+.has-search-right input:focus {
+  width: 300px;
+}
+
+.has-search-right .form-control-feedback {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  color: #5285ab;
+}
+
+
+#home__category img:hover {
+    opacity: 0.5;
+}
+#home__category div:nth-child(1) img {
+    position: relative;
+    left: 20%;
+    transform: scale(1.1);
+    top: -2%;
+}
+#home__category div:nth-child(2) a {
+    position: relative;
+    left: 15%;
+}
+#home__category div:nth-child(2) img {
+    position: relative;
+    transform: scale(1.06);
+    right: 5%;
+}
+#home__category div:nth-child(3) img {
+    position: relative;
+    left: 10%;
+}
+.home__category-box {
+    padding-bottom: 30px;
+    position: relative;
+}
+.home__category-title {
+    bottom: 0;
+    font-family: Roboto, Sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 10px;
+    background-color: #5989ae;
+    color: #fff;
+    padding: 4px 13px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+    box-shadow: 10px 10px 10px rgba(89, 137, 174, 0.3);
+}
+.home__category-title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: -5px;
+    bottom: -5px;
+    border: 3px solid #456789;
+    border-bottom-left-radius: 22px;
+    border-top-right-radius: 22px;
+    z-index: -1;
+    transition: top 0.3s, left 0.3s, right 0.3s, bottom 0.3s, border-color 0.3s;
+}
+.home__category-title:hover::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-color: #6789ab;
+}

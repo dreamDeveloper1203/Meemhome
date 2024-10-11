@@ -37,10 +37,13 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'sort_order',
-    ];
+    'name',
+    'description',
+    'sort_order',
+    'meta_title',           // Add these if they exist in the database
+    'meta_description',
+    'keywords',
+];
 
     /**
      * The accessors to append to the model's array form.
@@ -56,10 +59,10 @@ class Category extends Model
         'url',
         'is_active',
         'is_drafted',
-        'status',
+        
     ];
 
-    protected $with = ['subcategories'];
+    // protected $with = ['subcategories'];
 
     protected $casts = [
         'is_active' => 'boolean',
@@ -134,29 +137,34 @@ class Category extends Model
      */
     public function getUrlAttribute(): string
     {
+        //dd('test1');
         return route("category.show", $this->id);
     }
 
     public function getDateModifiedAttribute()
     {
+        //dd('test2');
         return gmdate('Y-m-d\TH:i:s\Z', strtotime($this->updated_at));
     }
 
 
     public function getPageTitleAttribute()
     {
+        //dd('test3');
         if (!is_null($this->meta_title)) return $this->meta_title;
         return Str::limit($this->name, 69);
     }
 
     public function getPageDescriptionAttribute()
     {
+        //dd('test4');
         if (!is_null($this->meta_description)) return $this->meta_description;
         return html_entity_decode(strip_tags(Str::limit($this->description, 319)));
     }
 
     public function getPageKeywordsAttribute()
     {
+        //dd('test5');
         if (!is_null($this->keywords)) return $this->keywords;
         return Str::limit(str_replace(' ', ', ', $this->name), 159);
     }

@@ -45,6 +45,7 @@ class ItemUpdateRequest extends FormRequest
 
             'image' => ['nullable', 'max:2024'],
             'category' => ['required', 'string'],
+            'location' => ['required', 'string'],
             'status' => ['required', 'integer'],
         ];
     }

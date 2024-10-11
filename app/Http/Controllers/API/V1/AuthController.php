@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 
+
 class AuthController extends Controller
 {
     use ThrottlesLogins;
@@ -28,35 +29,38 @@ class AuthController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(LoginRequest $request): JsonResponse
-    {
-        if (
-            method_exists($this, "hasTooManyLoginAttempts") &&
-            $this->hasTooManyLoginAttempts($request)
-        ) {
-            $this->fireLockoutEvent($request);
+   public function authenticate(LoginRequest $request): JsonResponse
+{
+    if (
+        method_exists($this, "hasTooManyLoginAttempts") &&
+        $this->hasTooManyLoginAttempts($request)
+    ) {
+        $this->fireLockoutEvent($request);
+        return $this->sendLockoutResponse($request);
+    }
 
-            return $this->sendLockoutResponse($request);
-        }
-
-        $user = User::whereEmail($request->email)->first();
-        if (is_null($user) || !Hash::check($request->password, $user->password)) {
-            $this->incrementLoginAttempts($request);
-
-            throw ValidationException::withMessages([
-                "email" => [Lang::get("auth.failed")],
-            ])->status(Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+    $user = User::whereEmail($request->email)->first();
+    if (is_null($user) || !Hash::check($request->password, $user->password)) {
+        $this->incrementLoginAttempts($request);
+        throw ValidationException::withMessages([
+            "email" => [Lang::get("auth.failed")],
+        ])->status(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
 
 
+
+    
         $tokenObj = $user->createToken('accessToken');
         $token = $tokenObj->accessToken;
 
-        return $this->jsonResponse([
-            "access_token" => $token,
-            "user" => $user,
-        ]);
-    }
+   
+
+    return $this->jsonResponse([
+        "access_token" => $token,
+        "user" => $user,
+    ]);
+}
+
 
     /**
      * Log the user out of the application.
@@ -88,6 +92,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role_id' => Role::USER,
         ]);
+        
 
         $tokenObj = $user->createToken('accessToken');
         $token = $tokenObj->accessToken;

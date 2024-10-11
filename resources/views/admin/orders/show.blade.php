@@ -150,7 +150,9 @@
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Quantity</th>
+                        <th>Location</th>
+                        <th>Remaingin Stock</th>
+                        <th>Order Quantity</th>
                         <th>Price</th>
                         <th>Total</th>
                     </tr>
@@ -179,13 +181,15 @@
 
 
                             </td>
-                            <td>x{{ $item->quantity }}</td>
+                            <td>{{ $item->item->location_name }}</td>
+                            <td>{{ $item->item->in_stock }}</td>
+                            <td>{{ $item->quantity }}</td>
                             <td>{{ $item->display_subtotal }}</td>
                             <td>{{ $item->display_total }}</td>
                         </tr>
                     @endforeach
                     <tr>
-                        <td colspan="3" class="text-end">
+                        <td colspan="5" class="text-end">
                             Subtotal
                         </td>
 
@@ -194,7 +198,7 @@
 
                     @if ($order->discount > 0)
                         <tr>
-                            <td colspan="3" class="text-end">
+                            <td colspan="5" class="text-end">
                                 Discount
                             </td>
 
@@ -203,7 +207,7 @@
                     @endif
                     @if ($order->is_delivery)
                         <tr>
-                            <td colspan="3" class="text-end">
+                            <td colspan="5" class="text-end">
                                 Delivery Charge
                             </td>
 
@@ -211,7 +215,7 @@
                         </tr>
                     @endif
                     <tr>
-                        <td colspan="3" class="text-end">
+                        <td colspan="5" class="text-end">
                             Total
                         </td>
 

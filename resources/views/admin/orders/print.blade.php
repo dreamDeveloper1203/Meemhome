@@ -91,7 +91,9 @@
                     <tr>
                         <th>Image</th>
                         <th>Item</th>
-                        <th>Serial No</th>
+                        <th>Barcode</th>
+                        <!-- <th>Remaining Stock</th> -->
+                        <th>Location</th>
                         <th>Category</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -106,7 +108,14 @@
                                     style="width: auto; height: 60px;">
                             </td>
                             <td>{{ $item->item->name }}</td>
-                            <td>{{ $item->item->serial_number ?? 'N/A' }}</td>
+                            <td style="text-align: center">
+                                <img width="200" src="https://barcode.orcascan.com/?type=code128&format=png&data={{$item->item ? $item->item->barcode ? $item->item->barcode : '' : ''}}"/>
+                                <div>
+                                    {{$item->item ? $item->item->barcode ? $item->item->barcode : '' : ''}}
+                                </div>
+                            </td>
+                            <!-- <td>{{ $item->item->in_stock }}</td> -->
+                            <td>{{ $item->item->location_name }}</td>
                             <td>{{ $item->item->category->name }}</td>
                             <td>x{{ $item->quantity }}</td>
                             <td>{{ $item->display_subtotal }}</td>
@@ -114,7 +123,7 @@
                         </tr>
                     @endforeach
                     <tr>
-                        <td colspan="6" class="text-end">
+                        <td colspan="7" class="text-end">
                             Subtotal
                         </td>
 
@@ -123,7 +132,7 @@
 
                     @if ($order->discount > 0)
                         <tr>
-                            <td colspan="6" class="text-end">
+                            <td colspan="7" class="text-end">
                                 Discount
                             </td>
 
@@ -132,7 +141,7 @@
                     @endif
                     @if ($order->is_delivery)
                         <tr>
-                            <td colspan="6" class="text-end">
+                            <td colspan="7" class="text-end">
                                 Delivery Charge
                             </td>
 
@@ -140,7 +149,7 @@
                         </tr>
                     @endif
                     <tr>
-                        <td colspan="6" class="text-end">
+                        <td colspan="7" class="text-end">
                             Total
                         </td>
 

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/order', [\App\Http\Controllers\API\V1\OrderController::class, 'store']);
 Route::post('/coupon', [\App\Http\Controllers\API\V1\CouponController::class, 'show']);
 // Route::get('/store/status', [\App\Http\Controllers\API\V1\StoreStatusController::class, 'show']);
 Route::get('/areas', [\App\Http\Controllers\API\V1\AreaController::class, 'index']);
@@ -30,10 +29,17 @@ Route::post('/login', [\App\Http\Controllers\API\V1\AuthController::class, 'auth
 // Route::post('/register', [\App\Http\Controllers\API\V1\AuthController::class, 'register']);
 Route::middleware(['auth:api'])->group(function () {
     Route::delete('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
-    Route::get('/user', [\App\Http\Controllers\API\V1\UserController::class, 'show']);
-    Route::get('/user/orders', [\App\Http\Controllers\API\V1\UserOrderController::class, 'index']);
     Route::get('/user/orders/{id}', [\App\Http\Controllers\API\V1\UserOrderController::class, 'show']);
+    Route::get('/user/orders', [\App\Http\Controllers\API\V1\UserOrderController::class, 'index']);
 });
 
+    Route::get('/user', [\App\Http\Controllers\API\V1\UserController::class, 'show']);
 //Recently Added
-Route::post('/register', [\App\Http\Controllers\API\V1\RegisterController::class, 'test']);
+Route::post('/order', [\App\Http\Controllers\API\V1\OrderController::class, 'store']);
+Route::post('/register', [\App\Http\Controllers\API\V1\AuthController::class, 'register']);
+  Route::get('categories/parents/all', [\App\Http\Controllers\Admin\Category\CategoryController::class, 'index'])->name('categories.parents.index');
+        Route::get('items/all', [\App\Http\Controllers\Admin\Item\ItemController::class, 'index'])->name('items.index');
+Route::get('/items/filter', [\App\Http\Controllers\Admin\Item\ItemController::class, 'filterItemsByCategory']);
+Route::get('/items/filter-code', [\App\Http\Controllers\Admin\Item\ItemController::class, 'filterItemsByCode']);
+        Route::get('items/{id}', [\App\Http\Controllers\Admin\Item\ItemController::class, 'showProduct']);
+
